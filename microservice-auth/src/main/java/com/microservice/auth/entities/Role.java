@@ -15,5 +15,10 @@ public class Role {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String name;  // ADMIN, CRM_COORDINATOR, etc.
+    private String name;
+
+    
+    public String getName() {
+        return this.name;
+    }
 }
