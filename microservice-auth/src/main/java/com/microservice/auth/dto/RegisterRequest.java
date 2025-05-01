@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class RegisterRequest {
- private String email;
- private String password;
- private String roleName; // ADMIN, CRM_COORDINATOR, etc.
+    private String email;
+    private String password;
+    private String dni;
+    private String roleName; 
 }

@@ -1,6 +1,8 @@
 package com.microservice.auth.config;
 
 import com.microservice.auth.entities.User;
+
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -35,5 +37,25 @@ public class JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+    
+    public String extractUsername(String token) {
+        Claims claims = Jwts.parserBuilder()
+            .setSigningKey(getSignInKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+        
+        
+        return claims.getSubject(); 
+    }
+
+    public String extractDni(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(getSignInKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("dni", String.class);
     }
 }
