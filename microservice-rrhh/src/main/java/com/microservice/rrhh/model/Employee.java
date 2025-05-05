@@ -62,6 +62,9 @@ public class Employee {
 	@Column(name = "subsidiary")
 	private Long subsidiary;
 	
+	@Column(name = "position")
+	private EmployeePosition position;
+	
 	
 	
 }
