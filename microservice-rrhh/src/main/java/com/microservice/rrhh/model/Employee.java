@@ -33,7 +33,7 @@ public class Employee {
 	private Department department;
 	
 	@Column(name = "dni")
-	private Long dni;
+	private String dni;
 	
 	@Column(name = "email")
 	private String email;
