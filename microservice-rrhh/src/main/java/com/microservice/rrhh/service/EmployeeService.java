@@ -1,6 +1,7 @@
 package com.microservice.rrhh.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class EmployeeService {
 	private EmployeeRepository employeeRepository;
 	
 	public List<Employee> getEmployees(){return employeeRepository.findAll();}
+	
+	public Optional<Employee> getEmployeeById(Long id) {return employeeRepository.findById(id);}
 	
 	public List<Employee> getEmployeesByDepartmentId(Long id){return employeeRepository.findAllByDepartment_Id(id);}
 	

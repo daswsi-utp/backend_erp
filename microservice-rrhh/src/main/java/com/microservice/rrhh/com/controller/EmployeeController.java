@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.rrhh.model.Department;
 import com.microservice.rrhh.model.Employee;
 import com.microservice.rrhh.model.EmployeePosition;
 import com.microservice.rrhh.model.EmployeeState;
@@ -26,6 +25,13 @@ public class EmployeeController {
 	
 	@GetMapping
 	public ResponseEntity<List<Employee>> getEmployees(){return ResponseEntity.ok(employeeService.getEmployees());}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Employee> getDepartmentById(@PathVariable Long id){
+		return employeeService.getEmployeeById(id)
+				.map(ResponseEntity::ok)
+				.orElseGet(()->ResponseEntity.notFound().build());
+	}
 	
 	@GetMapping("/department/{id}")
 	public ResponseEntity<List<Employee>> getEmployeesByDepartmentId(@PathVariable Long id){return ResponseEntity.ok(employeeService.getEmployeesByDepartmentId(id));}
