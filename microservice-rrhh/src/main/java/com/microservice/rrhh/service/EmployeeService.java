@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.microservice.rrhh.model.Employee;
+import com.microservice.rrhh.model.EmployeeState;
 import com.microservice.rrhh.repository.EmployeeRepository;
 
 @Service
@@ -17,6 +18,8 @@ public class EmployeeService {
 	public List<Employee> getEmployees(){return employeeRepository.findAll();}
 	
 	public List<Employee> getEmployeesByDepartmentId(Long id){return employeeRepository.findAllByDepartment_Id(id);}
+	
+	public List<Employee> getEmployeeByState(EmployeeState employeeState){return employeeRepository.findByState(employeeState);}
 	
 	public Employee createEmployee(Employee employee){return employeeRepository.save(employee);}
 	
