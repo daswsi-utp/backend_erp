@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.rrhh.model.Department;
 import com.microservice.rrhh.model.Employee;
+import com.microservice.rrhh.model.EmployeePosition;
 import com.microservice.rrhh.model.EmployeeState;
 import com.microservice.rrhh.service.EmployeeService;
 
@@ -31,6 +32,9 @@ public class EmployeeController {
 	
 	@GetMapping("/state/{employeeState}")
 	public ResponseEntity<List<Employee>> getEmployeeByState(@PathVariable EmployeeState employeeState){return ResponseEntity.ok(employeeService.getEmployeeByState(employeeState));}
+	
+	@GetMapping("/position/{employeePosition}")
+	public ResponseEntity<List<Employee>> getEmployeeByPosition(@PathVariable EmployeePosition employeePosition){return ResponseEntity.ok(employeeService.getEmployeeByPosition(employeePosition));}
 	
 	@PostMapping
 	public Employee createEmployee(@RequestBody Employee employee) {return employeeService.createEmployee(employee);}
