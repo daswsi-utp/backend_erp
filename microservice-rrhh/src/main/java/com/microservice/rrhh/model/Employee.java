@@ -28,12 +28,12 @@ public class Employee {
 	@Column(name = "lastName")
 	private String lastName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
 	private Department department;
 	
 	@Column(name = "dni")
-	private Long dni;
+	private String dni;
 	
 	@Column(name = "email")
 	private String email;
