@@ -7,9 +7,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/planning_db
-    username: tefa
-    password: 0203
+    url: jdbc:postgresql://umqnxdy2mw5i5ig2jhsf:TimFjoAlhmlatYFbTYPWBDGsk44BmK@botxiqb5gqg0ihfadqnj-postgresql.services.clever-cloud.com:50013/botxiqb5gqg0ihfadqnj
+    username: umqnxdy2mw5i5ig2jhsf
+    password: TimFjoAlhmlatYFbTYPWBDGsk44BmK
 
   jpa:
     hibernate:
