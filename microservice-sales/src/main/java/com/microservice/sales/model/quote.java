@@ -1,5 +1,6 @@
 package com.microservice.sales.model;
 
+import java.awt.Taskbar.State;
 import java.security.Timestamp;
 
 import org.hibernate.annotations.ManyToAny;
@@ -38,7 +39,7 @@ public class quote {
 	private Timestamp expirationDate;
 	
 	@Column(name = "state")
-	private String state;
+	private State state;
 		
 
 	@Column(name = "id_client")
