@@ -29,7 +29,7 @@ public class Contract {
 	private ContractType type;
 	
 	@Column(name = "startDate")
-	private LocalDate startDante;
+	private LocalDate startDate;
 	
 	@Column(name = "endDate")
 	private LocalDate endDate;
