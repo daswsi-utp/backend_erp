@@ -2,11 +2,15 @@ package com.microservice.sales.model;
 
 import java.security.Timestamp;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,19 +31,21 @@ public class quote {
 	@Column(name = "id_quotes")
 	private Long id_quotes;
 	
-	@Column(name = "issueDate")
+	@Column(name = "issue_date")
 	private Timestamp issueDate;
 	
-	@Column(name = "expirationDate")
+	@Column(name = "expiration_date")
 	private Timestamp expirationDate;
 	
 	@Column(name = "state")
 	private String state;
-	
-	@Column(name = "id_client")
+		
+
+	@JoinColumn(name = "id_client")
 	private Long id_client;
 	
-	@Column(name = "id_employee")
+	
+	@JoinColumn(name = "id_employee")
 	private Long id_employee;
 	
 	@Column(name = "typePayment")
