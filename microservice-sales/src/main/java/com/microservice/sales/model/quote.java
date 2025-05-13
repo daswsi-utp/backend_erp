@@ -42,11 +42,11 @@ public class quote {
 		
 
 	@Column(name = "id_client")
-	private Long id_client;
+	private Long clientId;
 	
 	
 	@Column(name = "id_employee")
-	private Long id_employee;
+	private Long employeeId;
 	
 	@Column(name = "typePayment")
 	private String typePayment;
