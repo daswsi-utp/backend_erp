@@ -29,7 +29,7 @@ public class quote {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_quotes")
-	private Long id_quotes;
+	private Long id;
 	
 	@Column(name = "issue_date")
 	private Timestamp issueDate;
@@ -41,11 +41,11 @@ public class quote {
 	private String state;
 		
 
-	@JoinColumn(name = "id_client")
+	@Column(name = "id_client")
 	private Long id_client;
 	
 	
-	@JoinColumn(name = "id_employee")
+	@Column(name = "id_employee")
 	private Long id_employee;
 	
 	@Column(name = "typePayment")
