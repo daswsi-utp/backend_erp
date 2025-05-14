@@ -14,7 +14,7 @@ public class QuoteController {
 	private QuoteRepository quoteRepository;
 	
 	public List<quote> getQuotes(){return quoteRepository.findAll();}
-	public Optional<quote> getDQuotesById(Long id) {return quoteRepository.findById(id);}
+	public Optional<quote> getQuotesById(Long id) {return quoteRepository.findById(id);}
 	public quote createQuote(quote quoten) {return quoteRepository.save(quoten);}
 	public quote updateQuote(quote quoten) {return quoteRepository.save(quoten);}
 	public void deleteQuote(Long id) {quoteRepository.deleteById(id);}
