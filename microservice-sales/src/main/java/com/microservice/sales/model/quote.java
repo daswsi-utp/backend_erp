@@ -55,7 +55,7 @@ public class quote {
 	@Column(name = "id_employee")
 	private Long employeeId;
 	
-	@Column(name = "typePayment")
+	@Column(name = "type_payment")
 	private String typePayment;
 	
 	@Column(name = "observation")

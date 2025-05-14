@@ -27,11 +27,11 @@ public class DetailQuote {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_detailQuote")
+	@Column(name = "id_detail_quote")
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "quotes_id", nullable = false)
+	@JoinColumn(name = "id_quotes")
 	private quote quoteId;
 	
 	@Column(name = "id_product")
