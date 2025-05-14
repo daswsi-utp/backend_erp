@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -62,6 +65,7 @@ public class quote {
 	private String observation;
 	
 	@OneToMany(mappedBy = "quoteId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<DetailQuote> details;
 		
 }

@@ -3,6 +3,8 @@ package com.microservice.sales.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,7 @@ public class DetailQuote {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_quotes")
+	@JsonBackReference
 	private quote quoteId;
 	
 	@Column(name = "id_product")
