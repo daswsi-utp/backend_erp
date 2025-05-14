@@ -40,6 +40,9 @@ public class DetailQuote {
 	@Column(name = "amount") //cantidad
 	private Integer amount;
 	
+	@Column(name = "prize")
+	private Double prize;
+	
 	@Column(name = "discount")//descuento
 	private Integer discount;
 	
