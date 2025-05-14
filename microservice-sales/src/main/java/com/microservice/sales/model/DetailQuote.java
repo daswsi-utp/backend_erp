@@ -1,14 +1,28 @@
 package com.microservice.sales.model;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
 @Table(name = "detail_quote")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class DetailQuote {
 	
 	@Id
@@ -34,6 +48,6 @@ public class DetailQuote {
 	
 	@Column(name = "total")
 	private Integer total;
-	
+		
 	
 }

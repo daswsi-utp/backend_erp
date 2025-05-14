@@ -1,17 +1,22 @@
 package com.microservice.sales.model;
 
-import java.awt.Taskbar.State;
-import java.security.Timestamp;
+import java.util.List;
+import java.sql.Timestamp;
+
 
 import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +43,7 @@ public class quote {
 	@Column(name = "expiration_date")
 	private Timestamp expirationDate;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "state")
 	private State state;
 		
@@ -55,5 +61,7 @@ public class quote {
 	@Column(name = "observation")
 	private String observation;
 	
-	
+	@OneToMany(mappedBy = "quoteId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DetailQuote> details;
+		
 }
