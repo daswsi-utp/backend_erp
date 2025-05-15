@@ -1,9 +1,12 @@
 package com.microservice.rrhh.service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.microservice.rrhh.model.Contract;
 import com.microservice.rrhh.repository.ContractRepository;
@@ -14,6 +17,23 @@ public class ContractService {
 	@Autowired
 	private ContractRepository contractRepository;
 	
-	public List<Contract> getContracts(){return contractRepository.findAll();}
+	@Autowired
+	private FileService fileService;
+	
+	String url = "http://localhost:8095/files/";
+	
+	public List<Contract> getContracts(){
+		List<Contract> contracts = contractRepository.findAll();
+		contracts = contracts.stream().map(contract -> {contract.setKey(url + contract.getKey());
+			return contract;
+		}).collect(Collectors.toList());
+		return contracts;
+	}
+	
+	public Contract createContract(Contract contract, MultipartFile file) throws IOException{
+		String key = fileService.saveFile(file);
+		contract.setKey(key);
+		return contractRepository.save(contract);
+	}
 	
 }

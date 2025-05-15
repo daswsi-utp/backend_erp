@@ -21,7 +21,7 @@ public class Contract {
 	@Column(name = "id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
@@ -40,6 +40,4 @@ public class Contract {
 	@Column(name = "key")
 	private String key;
 	
-	@Column(name = "url")
-	private String url;
 }
