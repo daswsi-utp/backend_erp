@@ -2,6 +2,7 @@ package com.microservice.rrhh.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,31 @@ public class ContractService {
 	
 	public List<Contract> getContracts(){
 		List<Contract> contracts = contractRepository.findAll();
-		contracts = contracts.stream().map(contract -> {contract.setKey(url + contract.getKey());
-			return contract;
-		}).collect(Collectors.toList());
+		contracts = addUrl(contracts);
 		return contracts;
+	}
+	
+	public Optional<Contract> getContractById(Long id){
+		Optional<Contract> contract = contractRepository.findById(id);
+		if (contract.isPresent()) {
+	        Contract c = contract.get();
+	        c.setKey(url + c.getKey());
+	        return Optional.of(c);
+	    }
+	    return contract;
 	}
 	
 	public Contract createContract(Contract contract, MultipartFile file) throws IOException{
 		String key = fileService.saveFile(file);
 		contract.setKey(key);
 		return contractRepository.save(contract);
+	}
+	
+	private List<Contract> addUrl(List<Contract> contracts){
+		contracts = contracts.stream().map(contract -> {contract.setKey(url + contract.getKey());
+			return contract;
+		}).collect(Collectors.toList());
+		return contracts;
 	}
 	
 }
