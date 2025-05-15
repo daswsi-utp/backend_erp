@@ -1,6 +1,8 @@
 package com.microservice.rrhh.service;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,6 +30,14 @@ public class FileService {
 			return encodedFileName;
 		}
 		return null;
+	}
+	
+	public void deleteFile(String nombre) throws IOException{
+		String originalFileName = URLDecoder.decode(nombre, StandardCharsets.UTF_8);
+		Path path = Paths.get("files/" + originalFileName);
+		Files.deleteIfExists(path);
+		//File file = new File(url + nombre);
+		//file.delete();
 	}
 	
 }

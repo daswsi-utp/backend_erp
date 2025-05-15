@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +38,11 @@ public class ContractController {
 	@PostMapping
 	public ResponseEntity<Contract> createContract(@RequestPart MultipartFile file, @RequestPart Contract contract) throws IOException{
 		return new ResponseEntity<>(contractService.createContract(contract, file), HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteContract(@PathVariable Long id) throws IOException{
+		contractService.deleteContract(id);
+		return ResponseEntity.noContent().build();
 	}
 }

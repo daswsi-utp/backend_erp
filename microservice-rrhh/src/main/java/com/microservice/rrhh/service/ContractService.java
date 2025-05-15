@@ -45,6 +45,14 @@ public class ContractService {
 		return contractRepository.save(contract);
 	}
 	
+	
+	public void deleteContract(Long id) throws IOException{
+		Contract contract = contractRepository.findById(id).get();
+		String name = contract.getKey();
+		fileService.deleteFile(name);
+		contractRepository.deleteById(id);
+	}
+	
 	private List<Contract> addUrl(List<Contract> contracts){
 		contracts = contracts.stream().map(contract -> {contract.setKey(url + contract.getKey());
 			return contract;
