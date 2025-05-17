@@ -18,8 +18,8 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   sql:
    init:
-   mode: always 
-   platform: postgresql
+      mode: always 
+      platform: postgresql
   
   config:
     import: optional:configserver:http://localhost:8888
@@ -33,4 +33,7 @@ eureka:
 
 jwt:
   secret: "c2VjcmV0LXNlY3JldC1zZWNyZXQtc2VjcmV0LXNlY3JldA=="
-  expiration: 60000
+  access-token:
+    expiration: 900000   
+  refresh-token:
+    expiration: 604800000

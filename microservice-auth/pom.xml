@@ -92,8 +92,13 @@
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
 		</dependency>
-		
-	</dependencies>
+
+		<dependency>
+			<groupId>com.microservice.config</groupId>
+			<artifactId>microservice-config</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		</dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
