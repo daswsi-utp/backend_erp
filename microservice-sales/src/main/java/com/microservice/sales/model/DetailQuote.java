@@ -47,13 +47,13 @@ public class DetailQuote {
 	private Double prize;
 	
 	@Column(name = "discount")//descuento
-	private Integer discount;
+	private Double discount;
 	
 	@Column(name = "tax")//impuesto
-	private Integer tax;
+	private Double tax;
 	
 	@Column(name = "total")
-	private Integer total;
+	private Double total;
 	
 	//IMPLEMENTAR COMMIT (PRUEBA TOTAL)
 	
