@@ -21,40 +21,42 @@ public class QuoteService {
 	    double subtotal = 0;
 	    double totalDiscount = 0;
 	    double totalTax = 0;
+	    double totalAmount = 0;
 
 	    if (quoten.getDetails() != null) {
 	        for (var detail : quoten.getDetails()) {
 	            detail.setQuoteId(quoten);
 
+	            // Calcular subtotal de la línea (cantidad * precio unitario)
 	            double lineSubtotal = detail.getAmount() * detail.getPrize();
-	            double discount = detail.getDiscount(); // Considera que puede ser fijo o porcentaje
-	            double tax = detail.getTax();
+	           
+	            // Calcular descuento (como porcentaje del subtotal de la línea)
+	            double discount = lineSubtotal * (detail.getDiscount() / 100.0); // Considera que puede ser fijo o porcentaje
+	            
+	            // Calcular impuesto (sobre el subtotal MENOS el descuento)
+	            double tax = (lineSubtotal - discount) * (detail.getTax() / 100.0);
 
-	            // Si son porcentajes:
-	            // discount = lineSubtotal * (discount / 100.0);
-	            // tax = (lineSubtotal - discount) * (tax / 100.0);
-
+	         // Calcular total de la línea
 	            double lineTotal = lineSubtotal - discount + tax;
-	            detail.setTotal((int) lineTotal); // o mejor, guarda como Double
+	            detail.setTotal(lineTotal);
 
 	            subtotal += lineSubtotal;
 	            totalDiscount += discount;
 	            totalTax += tax;
+	            totalAmount += lineTotal;
 	        }
 	    }
 
 	    quoten.setSubtotal(subtotal);
 	    quoten.setTotalDiscount(totalDiscount);
 	    quoten.setTotalTax(totalTax);
-	    quoten.setTotalAmount(subtotal - totalDiscount + totalTax);
+	    quoten.setTotalAmount(totalAmount); // Este es el total final con descuentos e impuestos
 
 	    return quoteRepository.save(quoten);
 	}
 
 
-
 	public quote updateQuote(quote quoten) {return quoteRepository.save(quoten);}
-	public void deleteQuote(Long id) {quoteRepository.deleteById(id);}
-	
+	public void deleteQuote(Long id) {quoteRepository.deleteById(id);}	
 	
 }
