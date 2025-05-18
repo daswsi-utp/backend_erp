@@ -26,7 +26,8 @@ public class DetailQuoteController {
 	//@GetMapping
 	//public ResponseEntity<List<quote>> getQuotes(){return ResponseEntity.ok(quoteService.getQuotes());}
 	
-	@DeleteMapping
+	
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteQuote (@PathVariable Long id){
 		
 		detailQuoteService.deleteDetailQuote(id);
