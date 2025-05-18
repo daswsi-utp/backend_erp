@@ -45,27 +45,25 @@ public class AuthServiceImpl implements IAuthService {
             throw new BadCredentialsException("Contraseña incorrecta");
         }
 
-        // Generar el accessToken y el refreshToken
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
 
-        // Guardar el refreshToken en la base de datos con su fecha de expiración
         RefreshToken newRefreshToken = new RefreshToken();
         newRefreshToken.setUserId(user.getId());
         newRefreshToken.setRefreshToken(refreshToken);
-        newRefreshToken.setExpireAt(new Date(System.currentTimeMillis() + jwtService.getRefreshTokenExpiration()));  // Usamos getRefreshTokenExpiration()
-        refreshTokenRepository.save(newRefreshToken);  // Guardamos el refreshToken
-
+        newRefreshToken.setExpireAt(new Date(System.currentTimeMillis() + jwtService.getRefreshTokenExpiration())); 
+        refreshTokenRepository.save(newRefreshToken);  
         return AuthResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .email(user.getEmail())
                 .dni(user.getDni())
                 .id(user.getId())
+                .roleName(user.getRoleName())
+                .expireAt(newRefreshToken.getExpireAt())   
+                .message("Login successful")
                 .build();
     }
-
-
 
 
     @Override
@@ -83,6 +81,7 @@ public class AuthServiceImpl implements IAuthService {
                 .dni(request.getDni())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .active(true)
+                .roleName("ADMIN")
                 .build();
 
         return userRepository.save(newUser);
@@ -120,7 +119,7 @@ public class AuthServiceImpl implements IAuthService {
         String newAccessToken = jwtService.generateAccessToken(user);
         return TokenRefreshResponse.builder()
                 .accessToken(newAccessToken)
-                .refreshToken(refreshToken)  // Retornamos el mismo refreshToken
+                .refreshToken(refreshToken)  
                 .build();
     }
 
@@ -128,7 +127,7 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public void logout(String token) {
         tokenBlacklistService.blacklistToken(token);        
-        refreshTokenRepository.deleteByRefreshToken(token);  // Usamos el método para eliminar el refreshToken
+        refreshTokenRepository.deleteByRefreshToken(token);  
     }
 
 }

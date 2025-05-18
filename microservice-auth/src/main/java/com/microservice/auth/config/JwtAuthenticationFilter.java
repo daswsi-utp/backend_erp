@@ -36,56 +36,52 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         try {
             final String authHeader = request.getHeader("Authorization");
-            
-            // Skip filter if no Authorization header
+
+            // Si no hay header o no empieza con Bearer, sigue sin autenticación
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;
             }
-            
-            // Extract token
+
             final String jwt = authHeader.substring(7).trim();
-            
-            // Validate token structure before processing
+
+            // Validación básica formato token JWT (debe tener 3 partes separadas por '.')
             if (jwt.isEmpty() || jwt.split("\\.").length != 3) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token format");
                 return;
             }
-            
-            // Check blacklist
+
+            // Validar si token está revocado
             if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token revoked");
                 return;
             }
-            
-            // Extract username and validate
+
             final String userEmail = jwtService.extractUsername(jwt);
             if (userEmail == null) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
                 return;
             }
-            
-            // Check if user is already authenticated
+
+            // Solo autenticar si no hay ya autenticación en contexto
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-                
-                // Validate token
+
+                // Validar token contra detalles usuario
                 if (jwtService.isTokenValid(jwt, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = 
+                    UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities()
                         );
-                    authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
-            
+
             filterChain.doFilter(request, response);
-            
+
         } catch (MalformedJwtException e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token format");
         } catch (ExpiredJwtException e) {
@@ -94,5 +90,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             logger.error("Authentication error", e);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed");
         }
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        // No filtrar las rutas de autenticación para evitar ciclo infinito
+        return request.getServletPath().startsWith("/api/auth/");
     }
 }

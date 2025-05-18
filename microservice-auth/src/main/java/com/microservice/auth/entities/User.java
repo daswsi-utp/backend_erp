@@ -30,16 +30,19 @@ public class User implements UserDetails {
     @Column(nullable = false)
     @Builder.Default
     private boolean active = false;
+    
+    @Column(nullable = false)
+    private String roleName; 
 
-    // Implementación de UserDetails
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // O define roles si los tienes
+        return Collections.emptyList(); 
     }
 
     @Override
     public String getUsername() {
-        return email; // Usamos email como username
+        return email; 
     }
 
     @Override

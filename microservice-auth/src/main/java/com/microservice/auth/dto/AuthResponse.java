@@ -1,5 +1,7 @@
 package com.microservice.auth.dto;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +19,8 @@ public class AuthResponse {
     private String email;
     private String dni;
     private Long id;
+    private String roleName;
+
+    private Date expireAt; 
+    private String message;
 }

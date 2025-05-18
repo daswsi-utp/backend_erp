@@ -12,15 +12,14 @@ public class RefreshToken {
 
     private Long userId;  
 
-    private String refreshToken;  // El refreshToken
+    private String refreshToken;  
 
-    private Date expireAt;  // Fecha de expiración
+    private Date expireAt;  
 
-    private Date createdAt = new Date();  // Fecha de creación
+    private Date createdAt = new Date();  
 
-    private Date updatedAt = new Date();  // Fecha de la última actualización
-
-    // Getters y setters
+    private Date updatedAt = new Date();  
+    
     public Long getId() {
         return id;
     }
