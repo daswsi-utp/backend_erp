@@ -32,6 +32,10 @@ public class Employee {
     @JoinColumn(name = "department_id")
 	private Department department;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
 	@Column(name = "dni")
 	private String dni;
 	
