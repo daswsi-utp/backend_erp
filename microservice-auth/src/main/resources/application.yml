@@ -13,16 +13,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   sql:
    init:
-   mode: always 
-   platform: postgresql
+      mode: always 
+      platform: postgresql
   
   config:
     import: optional:configserver:http://localhost:8888
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.cors: DEBUG
 
 eureka:
   instance:
@@ -33,4 +38,7 @@ eureka:
 
 jwt:
   secret: "c2VjcmV0LXNlY3JldC1zZWNyZXQtc2VjcmV0LXNlY3JldA=="
-  expiration: 60000
+  access-token:
+    expiration: 900000   
+  refresh-token:
+    expiration: 604800000
