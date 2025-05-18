@@ -67,5 +67,20 @@ public class quote {
 	@OneToMany(mappedBy = "quoteId", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<DetailQuote> details;
+	
+	//PRUEBA
+	
+	@Column(name = "subtotal")
+	private Double subtotal;
+
+	@Column(name = "total_discount")
+	private Double totalDiscount;
+
+	@Column(name = "total_tax")
+	private Double totalTax;
+
+	@Column(name = "total_amount")
+	private Double totalAmount;
+
 		
 }

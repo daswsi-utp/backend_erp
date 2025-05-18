@@ -54,6 +54,8 @@ public class DetailQuote {
 	
 	@Column(name = "total")
 	private Integer total;
-		
+	
+	//IMPLEMENTAR COMMIT (PRUEBA TOTAL)
+	
 	
 }
