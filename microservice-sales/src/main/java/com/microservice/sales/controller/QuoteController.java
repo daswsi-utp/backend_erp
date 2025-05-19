@@ -1,5 +1,6 @@
 package com.microservice.sales.controller;
 
+import java.awt.Taskbar.State;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,10 @@ public class QuoteController {
 		return ResponseEntity.noContent().build();
 		
 	}
-		
+	
+	@GetMapping("/approved")
+	public ResponseEntity<List<quote>> getApprovedQuotes() {
+	    return ResponseEntity.ok(quoteService.getQuotesByState(com.microservice.sales.model.State.APPROVED));
+	}
 
 }

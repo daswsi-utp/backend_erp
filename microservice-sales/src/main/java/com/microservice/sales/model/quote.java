@@ -69,8 +69,6 @@ public class quote {
 	@JsonManagedReference
 	private List<DetailQuote> details;
 	
-	 @OneToOne(mappedBy = "quote", cascade = CascadeType.ALL)
-	 private OrderTracking orderTracking;
 	
 	
 	//PRUEBA

@@ -4,9 +4,13 @@ import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +30,7 @@ public class OrderTracking {
 	@Column(name = "id_order")
 	private Long id;
 
-	@Column(name = "id_quote")
-	private quote quoteId;
+	
 	
 	@Column(name = "supping_date")
 	private Timestamp shippingDate; //fecha envio
@@ -35,10 +38,15 @@ public class OrderTracking {
 	@Column(name = "delivery_date")
 	private Timestamp deliveryDate; //fecha llegada
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "delivery_status")
 	private DeliveryStatus deliveryStatus;//estado de la entrega
 	
 	@Column(name = "place_delivery")
 	private String placeOdelivery;//lugar de entrega
+	
+	@OneToOne
+	@JoinColumn(name = "quote_id", referencedColumnName = "id_quotes")
+	private quote quote;
 	
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.microservice.sales.model.DetailQuote;
+
 import com.microservice.sales.model.OrderTracking;
 import com.microservice.sales.repository.OrderTrackingRepository;
 

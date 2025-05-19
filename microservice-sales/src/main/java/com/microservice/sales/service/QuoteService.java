@@ -1,5 +1,6 @@
 package com.microservice.sales.service;
 
+import java.awt.Taskbar.State;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,5 +59,11 @@ public class QuoteService {
 
 	public quote updateQuote(quote quoten) {return quoteRepository.save(quoten);}
 	public void deleteQuote(Long id) {quoteRepository.deleteById(id);}	
+	
+	public List<quote> getQuotesByState(com.microservice.sales.model.State state) {
+	    return quoteRepository.findByState(state);
+	}
+
+
 	
 }
