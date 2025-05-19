@@ -20,6 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -67,6 +68,10 @@ public class quote {
 	@OneToMany(mappedBy = "quoteId", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<DetailQuote> details;
+	
+	 @OneToOne(mappedBy = "quote", cascade = CascadeType.ALL)
+	 private OrderTracking orderTracking;
+	
 	
 	//PRUEBA
 	
