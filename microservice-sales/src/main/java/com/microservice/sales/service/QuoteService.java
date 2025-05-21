@@ -57,7 +57,24 @@ public class QuoteService {
 	}
 
 
-	public quote updateQuote(quote quoten) {return quoteRepository.save(quoten);}
+	public quote updateQuote(quote quoteUpdate) {
+	    return quoteRepository.findById(quoteUpdate.getId()).map(existingQuote -> {
+	        // Actualizar solo campos permitidos
+	        existingQuote.setIssueDate(quoteUpdate.getIssueDate());
+	        existingQuote.setExpirationDate(quoteUpdate.getExpirationDate());
+	        existingQuote.setState(quoteUpdate.getState());
+	        existingQuote.setClientId(quoteUpdate.getClientId());
+	        existingQuote.setEmployeeId(quoteUpdate.getEmployeeId());
+	        existingQuote.setTypePayment(quoteUpdate.getTypePayment());
+	        existingQuote.setObservation(quoteUpdate.getObservation());
+	        
+	        // No tocar: details, subtotal, totalDiscount, totalTax, totalAmount
+	        return quoteRepository.save(existingQuote);
+	    }).orElseThrow(() -> new RuntimeException("Cotización no encontrada"));
+	}
+	
+
+	
 	public void deleteQuote(Long id) {quoteRepository.deleteById(id);}	
 	
 	public List<quote> getQuotesByState(com.microservice.sales.model.State state) {
