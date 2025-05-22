@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +39,18 @@ public class DetailQuoteController {
 	    public ResponseEntity<DetailQuote> createDetailQuote(@RequestBody DetailQuote detailQuote) {
 	        DetailQuote created = detailQuoteService.createDetailQuote(detailQuote);
 	        return ResponseEntity.ok(created);
+	    }
+	 
+	 @PutMapping("/{id}")
+	 public ResponseEntity<DetailQuote> updateDetailQuote(@PathVariable Long id, @RequestBody DetailQuote detailQuote) {
+	        Optional<DetailQuote> existing = detailQuoteService.getDetailQuotesById(id);
+	        if (existing.isPresent()) {
+	            detailQuote.setId(id); // Asegura que se actualiza el correcto
+	            DetailQuote updated = detailQuoteService.updateDetailQuote(detailQuote);
+	            return ResponseEntity.ok(updated);
+	        } else {
+	            return ResponseEntity.notFound().build();
+	        }
 	    }
 	
 	

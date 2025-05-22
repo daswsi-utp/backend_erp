@@ -25,8 +25,27 @@ public class DetailQuoteService {
 
 	    return detailQuoteRepository.save(detailQuote);
 	}
+	
+		
 
-	public DetailQuote updateDetailQuote (DetailQuote detailQuote) {return detailQuoteRepository.save(detailQuote);}
+	public DetailQuote updateDetailQuote(DetailQuote detailQuote) {
+	    // Calcular el total (ejemplo simple)
+	    double subtotal = detailQuote.getAmount() * detailQuote.getPrize();
+	    double discountAmount = subtotal * (detailQuote.getDiscount() / 100);
+	    double taxAmount = (subtotal - discountAmount) * (detailQuote.getTax() / 100);
+	    double total = subtotal - discountAmount + taxAmount;
+
+	    detailQuote.setTotal(total);
+
+	    return detailQuoteRepository.save(detailQuote);
+	    
+	    
+	}
+
+	
+	
+	
+	
 	public void deleteDetailQuote (Long id) {detailQuoteRepository.deleteById(id);}
 	public List<DetailQuote> getDetailsByQuoteId(Long quoteId) {
 	    return detailQuoteRepository.findByQuoteIdId(quoteId);
