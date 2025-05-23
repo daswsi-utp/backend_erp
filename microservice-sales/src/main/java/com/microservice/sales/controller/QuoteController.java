@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.quote;
 import com.microservice.sales.service.QuoteService;
 
@@ -36,8 +37,13 @@ public class QuoteController {
 		
 	}
 	
+	//@PostMapping
+	//public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
+	
 	@PostMapping
-	public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
+	public ResponseEntity<quote> createQuote(@RequestBody QuoteRequestDTO request) {
+        return ResponseEntity.ok(quoteService.createQuoteFromRequest(request));
+    }
 	
 	@PutMapping
 	public ResponseEntity<quote> updateQuote(@RequestBody quote quoten){return ResponseEntity.ok(quoteService.updateQuote(quoten));}

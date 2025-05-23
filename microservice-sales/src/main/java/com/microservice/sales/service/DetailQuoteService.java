@@ -42,10 +42,7 @@ public class DetailQuoteService {
 	    
 	}
 
-	
-	
-	
-	
+
 	public void deleteDetailQuote (Long id) {detailQuoteRepository.deleteById(id);}
 	public List<DetailQuote> getDetailsByQuoteId(Long quoteId) {
 	    return detailQuoteRepository.findByQuoteIdId(quoteId);
