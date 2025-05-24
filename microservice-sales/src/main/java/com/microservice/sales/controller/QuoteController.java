@@ -37,13 +37,10 @@ public class QuoteController {
 		
 	}
 	
-	//@PostMapping
-	//public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
-	
 	@PostMapping
-	public ResponseEntity<quote> createQuote(@RequestBody QuoteRequestDTO request) {
-        return ResponseEntity.ok(quoteService.createQuoteFromRequest(request));
-    }
+	public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
+	
+	
 	
 	@PutMapping
 	public ResponseEntity<quote> updateQuote(@RequestBody quote quoten){return ResponseEntity.ok(quoteService.updateQuote(quoten));}

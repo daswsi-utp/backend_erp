@@ -34,7 +34,6 @@ public class DetailQuoteController {
                      .orElseGet(() -> ResponseEntity.notFound().build());
     } 
 	
-	
 	 @PostMapping
 	    public ResponseEntity<DetailQuote> createDetailQuote(@RequestBody DetailQuote detailQuote) {
 	        DetailQuote created = detailQuoteService.createDetailQuote(detailQuote);
@@ -67,7 +66,5 @@ public class DetailQuoteController {
 	    List<DetailQuote> details = detailQuoteService.getDetailsByQuoteId(quoteId);
 	    return ResponseEntity.ok(details);
 	}
-
-	
 
 }
