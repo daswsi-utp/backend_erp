@@ -1,6 +1,7 @@
 package com.microservice.rrhh.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,6 @@ public class PermissionService {
 	public List<Permission> getPermissionByState(PermissionState permissionState){return permissionRepository.findByState(permissionState);}
 	
 	public List<Permission> getPermissionByType(PermissionType permissionType){return permissionRepository.findByType(permissionType);}
+	
+	public Optional<Permission> getPermissionById(Long id){return permissionRepository.findById(id);}
 }

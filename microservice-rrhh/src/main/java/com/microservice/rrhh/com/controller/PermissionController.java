@@ -29,4 +29,11 @@ public class PermissionController {
 	
 	@GetMapping("/type/{permissionType}")
 	public ResponseEntity<List<Permission>> getPermissionByType(@PathVariable PermissionType permissionType){return ResponseEntity.ok(permissionService.getPermissionByType(permissionType));}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Permission> getPermissionById(@PathVariable Long id){
+		return permissionService.getPermissionById(id)
+				.map(ResponseEntity::ok)
+				.orElseGet(()->ResponseEntity.notFound().build());
+	}
 }
