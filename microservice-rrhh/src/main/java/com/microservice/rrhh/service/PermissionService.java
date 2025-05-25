@@ -1,5 +1,7 @@
 package com.microservice.rrhh.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +26,20 @@ public class PermissionService {
 	public List<Permission> getPermissionByType(PermissionType permissionType){return permissionRepository.findByType(permissionType);}
 	
 	public Optional<Permission> getPermissionById(Long id){return permissionRepository.findById(id);}
+	
+	public Permission createPermission(Permission permission){
+		Long days = daysTakenCalculator(permission.getStartDate(), permission.getEndDate());
+		permission.setDaysTaken(days);
+		return permissionRepository.save(permission);
+	}
+	
+	
+	
+	
+	public static long daysTakenCalculator(LocalDate fechaInicio, LocalDate fechaFin) {
+        if (fechaFin.isBefore(fechaInicio)) {
+            throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio.");
+        }
+        return ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+    }
 }
