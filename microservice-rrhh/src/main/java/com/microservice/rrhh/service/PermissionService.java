@@ -39,7 +39,7 @@ public class PermissionService {
 		return permissionRepository.save(permission);
 	}
 	
-	
+	public void deletePermission(Long id){permissionRepository.deleteById(id);}
 	
 	public static long daysTakenCalculator(LocalDate fechaInicio, LocalDate fechaFin) {
         if (fechaFin.isBefore(fechaInicio)) {
