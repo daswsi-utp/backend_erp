@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.planning.entities.Plan;
-import com.microservice.planning.services.PlanService;
+import com.microservice.planning.entities.Task;
+import com.microservice.planning.services.TaskService;
 
 @RestController
-@RequestMapping("/api/planning/plan")
-public class PlanController {
-	
+@RequestMapping("/api/planning/task")
+public class TaskController {
+
 	@Autowired
-	private PlanService planService;
+	private TaskService taskService;
 	
 	@GetMapping
-	public List<Plan> listPlans() {
-		return planService.getPlans();
+	public List<Task> listTasks() {
+		return taskService.getTasks();
 	}
 
 	@PostMapping("create")
-	public Plan create(@RequestBody Plan plan) {
-		return planService.createPlan(plan);
+	public Task create(@RequestBody Task task) {
+		return taskService.createTask(task);
 	}
 	
 	@PutMapping("update/{id}")
-	public Plan update(@RequestBody Plan plan, @PathVariable Integer id) {
-		plan.setPlan_id(id);
-		return planService.updatePlan(plan);
+	public Task update(@RequestBody Task task, @PathVariable Integer id) {
+		task.setTask_id(id);
+		return taskService.updateTask(task);
 	}
 	
 	@DeleteMapping("delete/{id}")
 	public void delete(@PathVariable Integer id) {
-		planService.deletePlan(id);
+		taskService.deleteTask(id);
 	}
 	
 }
