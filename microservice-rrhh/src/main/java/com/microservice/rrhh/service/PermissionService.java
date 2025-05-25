@@ -33,6 +33,11 @@ public class PermissionService {
 		return permissionRepository.save(permission);
 	}
 	
+	public Permission updatePermission(Permission permission){
+		Long days = daysTakenCalculator(permission.getStartDate(), permission.getEndDate());
+		permission.setDaysTaken(days);
+		return permissionRepository.save(permission);
+	}
 	
 	
 	
