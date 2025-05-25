@@ -30,6 +30,11 @@ public class VacationService {
 		return vacationRepository.save(vacation);
 	}
 	
+	public Vacation updateVacation(Vacation vacation) {
+		Long days = daysTakenCalculator(vacation.getStartDate(), vacation.getEndDate());
+		vacation.setDaysTaken(days);
+		return vacationRepository.save(vacation);
+	}
 	
 	
 	public static long daysTakenCalculator(LocalDate fechaInicio, LocalDate fechaFin) {
