@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.rrhh.model.Permission;
 import com.microservice.rrhh.model.PermissionState;
+import com.microservice.rrhh.model.PermissionType;
 import com.microservice.rrhh.service.PermissionService;
 
 @RestController
@@ -23,6 +24,9 @@ public class PermissionController {
 	@GetMapping
 	public ResponseEntity<List<Permission>> getPermissions(){return ResponseEntity.ok(permissionService.getPermissions());}
 	
-	@GetMapping("/{permissionState}")
+	@GetMapping("/state/{permissionState}")
 	public ResponseEntity<List<Permission>> getPermissionByState(@PathVariable PermissionState permissionState){return ResponseEntity.ok(permissionService.getPermissionByState(permissionState));}
+	
+	@GetMapping("/type/{permissionType}")
+	public ResponseEntity<List<Permission>> getPermissionByType(@PathVariable PermissionType permissionType){return ResponseEntity.ok(permissionService.getPermissionByType(permissionType));}
 }

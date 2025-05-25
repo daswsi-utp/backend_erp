@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.microservice.rrhh.model.Permission;
 import com.microservice.rrhh.model.PermissionState;
+import com.microservice.rrhh.model.PermissionType;
 import com.microservice.rrhh.repository.PermissionRepository;
 
 @Service
@@ -18,4 +19,6 @@ public class PermissionService {
 	public List<Permission> getPermissions(){return permissionRepository.findAll();}
 	
 	public List<Permission> getPermissionByState(PermissionState permissionState){return permissionRepository.findByState(permissionState);}
+	
+	public List<Permission> getPermissionByType(PermissionType permissionType){return permissionRepository.findByType(permissionType);}
 }
