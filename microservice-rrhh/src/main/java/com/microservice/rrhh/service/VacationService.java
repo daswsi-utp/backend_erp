@@ -36,6 +36,8 @@ public class VacationService {
 		return vacationRepository.save(vacation);
 	}
 	
+	public void deleteVacation(Long id){vacationRepository.deleteById(id);}
+	
 	
 	public static long daysTakenCalculator(LocalDate fechaInicio, LocalDate fechaFin) {
         if (fechaFin.isBefore(fechaInicio)) {
