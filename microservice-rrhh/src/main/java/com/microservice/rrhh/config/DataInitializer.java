@@ -33,9 +33,9 @@ public class DataInitializer implements CommandLineRunner {
             );
 
             roleRepository.saveAll(roles);
-            System.out.println("✅ Libros iniciales creados.");
+            System.out.println("✅ Roles iniciales creados.");
         } else {
-            System.out.println("ℹ️ Ya existen libros, no se insertan duplicados.");
+            System.out.println("ℹ️ Ya existen Roles, no se insertan duplicados.");
         }
     }
 }

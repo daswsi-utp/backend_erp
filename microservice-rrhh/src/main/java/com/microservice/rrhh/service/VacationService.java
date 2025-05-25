@@ -1,5 +1,7 @@
 package com.microservice.rrhh.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +23,20 @@ public class VacationService {
 	public Optional<Vacation> getVacationById(Long id){return vacationRepository.findById(id);}
 	
 	public List<Vacation> getVacationsByState(VacationState vacationState){return vacationRepository.findByState(vacationState);}
+	
+	public Vacation createVacation(Vacation vacation){
+		Long days = daysTakenCalculator(vacation.getStartDate(), vacation.getEndDate());
+		vacation.setDaysTaken(days);
+		return vacationRepository.save(vacation);
+	}
+	
+	
+	
+	public static long daysTakenCalculator(LocalDate fechaInicio, LocalDate fechaFin) {
+        if (fechaFin.isBefore(fechaInicio)) {
+            throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la fecha de inicio.");
+        }
+        return ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+    }
 	
 }
