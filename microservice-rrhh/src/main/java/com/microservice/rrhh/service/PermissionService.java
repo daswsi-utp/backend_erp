@@ -1,0 +1,19 @@
+package com.microservice.rrhh.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.microservice.rrhh.model.Permission;
+
+import com.microservice.rrhh.repository.PermissionRepository;
+
+@Service
+public class PermissionService {
+
+	@Autowired
+	private PermissionRepository permissionRepository;
+	
+	public List<Permission> getPermissions(){return permissionRepository.findAll();}
+}
