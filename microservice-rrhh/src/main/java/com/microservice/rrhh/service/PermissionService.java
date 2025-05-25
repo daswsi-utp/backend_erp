@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.microservice.rrhh.model.Permission;
-
+import com.microservice.rrhh.model.PermissionState;
 import com.microservice.rrhh.repository.PermissionRepository;
 
 @Service
@@ -16,4 +16,6 @@ public class PermissionService {
 	private PermissionRepository permissionRepository;
 	
 	public List<Permission> getPermissions(){return permissionRepository.findAll();}
+	
+	public List<Permission> getPermissionByState(PermissionState permissionState){return permissionRepository.findByState(permissionState);}
 }

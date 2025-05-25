@@ -35,7 +35,7 @@ public class VacationController {
 	}
 	
 	@GetMapping("/{vacationState}")
-	public ResponseEntity<List<Vacation>> getVcationByState(VacationState vacationState){return ResponseEntity.ok(vacationService.getVacationsByState(vacationState));}
+	public ResponseEntity<List<Vacation>> getVcationByState(@PathVariable VacationState vacationState){return ResponseEntity.ok(vacationService.getVacationsByState(vacationState));}
 	
 	@PostMapping
 	public ResponseEntity<Vacation> createVacation(@RequestBody Vacation vacation){return ResponseEntity.ok(vacationService.createVacation(vacation));}
