@@ -19,7 +19,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Solo insertamos si no hay libros en la BD
+        // Solo insertamos si no hay roles en la BD
         if (roleRepository.count() == 0) {
             List<Role> roles = List.of(
                 new Role(null, "ADMINISTRADOR GENERAL"),

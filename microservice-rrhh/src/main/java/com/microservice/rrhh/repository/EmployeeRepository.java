@@ -10,6 +10,7 @@ import com.microservice.rrhh.model.EmployeeState;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	List<Employee> findAllByDepartment_Id(Long id);
+	List<Employee> findAllByRole_Id(Long id);
 	List<Employee> findByState(EmployeeState state);
 	List<Employee> findByPosition(EmployeePosition position);
 }
