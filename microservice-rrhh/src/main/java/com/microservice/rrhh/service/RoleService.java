@@ -19,6 +19,6 @@ public class RoleService {
 	
 	public Optional<Role> getRoleById(Long id){return roleRepository.findById(id);}
 	
-	
+	public Role createRole(Role role){return roleRepository.save(role);}
 	
 }
