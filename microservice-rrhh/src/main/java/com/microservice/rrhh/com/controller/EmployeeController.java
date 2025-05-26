@@ -38,6 +38,9 @@ public class EmployeeController {
 	@GetMapping("/department/{id}")
 	public ResponseEntity<List<Employee>> getEmployeesByDepartmentId(@PathVariable Long id){return ResponseEntity.ok(employeeService.getEmployeesByDepartmentId(id));}
 	
+	@GetMapping("/role/{id}")
+	public ResponseEntity<List<Employee>> getEmployeesByRoleId(@PathVariable Long id){return ResponseEntity.ok(employeeService.getEmployeesByRoleId(id));}
+	
 	@GetMapping("/state/{employeeState}")
 	public ResponseEntity<List<Employee>> getEmployeeByState(@PathVariable EmployeeState employeeState){return ResponseEntity.ok(employeeService.getEmployeeByState(employeeState));}
 	
