@@ -1,5 +1,5 @@
 package com.microservice.planning.services;
-
+	
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import com.microservice.planning.repositories.PlanRepository;
 import com.microservice.planning.repositories.TaskRepository;
 
 @Service
-public class AssignamentService {
+public class AssignmentService {
 
     @Autowired
     private PlanRepository planRepository;
