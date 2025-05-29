@@ -14,7 +14,7 @@ public class ParticipantService {
 	@Autowired
 	private ParticipantRepository participantRepository;
 	
-	public List<Participant> getParticipant() {
+	public List<Participant> getParticipants() {
 		return participantRepository.findAll();
 	}
 	
