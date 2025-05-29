@@ -1,5 +1,7 @@
 package com.microservice.planning.services;
 	
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,19 @@ public class AssignmentService {
         PlanParticipantTaskId pptId = new PlanParticipantTaskId(planId, participantId, taskId);
         PlanParticipantTask ppt = new PlanParticipantTask(pptId, plan, participant, task);
         planParticipantTaskRepository.save(ppt);
+    }
+    
+    public List<Participant> getParticipantsByPlan(int planId) {
+        return planParticipantRepository.findByPlan_PlanId(planId)
+                .stream()
+                .map(PlanParticipant::getParticipant)
+                .toList();
+    }
+
+    public List<Task> getTasksOfParticipantInPlan(int planId, int participantId) {
+        return planParticipantTaskRepository.findByPlan_PlanIdAndParticipant_ParticipantId(planId, participantId)
+                .stream()
+                .map(PlanParticipantTask::getTask)
+                .toList();
     }
 }
