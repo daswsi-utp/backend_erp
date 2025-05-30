@@ -2,13 +2,18 @@ package com.microservice.manufacture.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 
 import com.microservice.manufacture.model.Mail;
+import com.microservice.manufacture.repository.EmailRepository;
 import com.microservice.manufacture.service.EmailService;
 
 public class EmailServiceImpl implements EmailService {
+	
+	@Autowired
+	private EmailRepository emailRepository;
 	
 	private final JavaMailSender mailSender;
 	
@@ -42,8 +47,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public Mail saveEmail(Mail mail) {
-		// TODO Auto-generated method stub
-		return null;
+		return emailRepository.save(mail);
 	}
 
 	@Override
