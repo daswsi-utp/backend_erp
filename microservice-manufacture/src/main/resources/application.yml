@@ -4,6 +4,17 @@ server:
 spring:
   application:
     name: msvc-manufacture
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: eng27.26.25@gmail.com
+    password: bsoi byxh dwfu nmqu
+    properties:
+      mail:
+      smtp:
+      auth: true
+      starttls:
+      enable: true
 
   datasource:
     driver-class-name: org.postgresql.Driver

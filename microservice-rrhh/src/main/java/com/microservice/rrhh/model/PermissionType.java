@@ -1,7 +1,7 @@
 package com.microservice.rrhh.model;
 
 public enum PermissionType {
-	PERMISO_SICK,
+	PERMISO_ENFERMEDAD,
     PERMISO_PERSONAL,
     PERMISO_LICENCIA,
     PERMISO_EXAMEN,
