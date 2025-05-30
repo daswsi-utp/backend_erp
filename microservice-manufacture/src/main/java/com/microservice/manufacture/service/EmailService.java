@@ -5,4 +5,6 @@ import com.microservice.manufacture.model.Mail;
 public interface EmailService {
 
 	void sendHTMLEmail(Mail mail);
+	
+	void sendSimpleEmail(Mail mail);
 }
