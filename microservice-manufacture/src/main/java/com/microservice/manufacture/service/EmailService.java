@@ -9,4 +9,6 @@ public interface EmailService {
 	void sendSimpleEmail(Mail mail);
 	
 	void sendEmailWithThymeLeaf(Mail mail);
+	
+	void sendEmailWithAttachment(Mail mail);
 }
