@@ -10,6 +10,10 @@ import com.microservice.manufacture.model.Mail;
 import com.microservice.manufacture.repository.EmailRepository;
 import com.microservice.manufacture.service.EmailService;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
 public class EmailServiceImpl implements EmailService {
 	
 	@Autowired
@@ -22,9 +26,17 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendHTMLEmail(Mail mail) {
-		// TODO Auto-generated method stub
-		
+	@Async
+	public void sendHTMLEmail(Mail mail) throws MessagingException {
+		MimeMessage message = mailSender.createMimeMessage();
+		message.setFrom(new InternetAddress("eng27.26.25@gmail.com"));
+        for (String recipient: mail.getTo()){
+            message.addRecipients(MimeMessage.RecipientType.TO, recipient);
+        }
+        message.setSubject(mail.getSubject());
+        message.setContent(mail.getBody(), "text/html; charset=utf-8");
+
+        mailSender.send(message);
 	}
 
 	@Override

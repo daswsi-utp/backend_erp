@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.microservice.manufacture.model.Mail;
 
+import jakarta.mail.MessagingException;
+
 public interface EmailService {
 
-	void sendHTMLEmail(Mail mail);
+	void sendHTMLEmail(Mail mail) throws MessagingException;
 	
 	void sendSimpleEmail(Mail mail);
 	
