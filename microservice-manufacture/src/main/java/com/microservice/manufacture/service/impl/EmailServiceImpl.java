@@ -3,6 +3,7 @@ package com.microservice.manufacture.service.impl;
 import java.util.List;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 
 import com.microservice.manufacture.model.Mail;
 import com.microservice.manufacture.service.EmailService;
