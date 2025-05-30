@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table( name = "mail")
 @Getter
@@ -14,7 +16,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Mail {
 
-	private String[] to;
+	@ElementCollection
+	@CollectionTable(name = "mail_recipients", joinColumns = @JoinColumn(name = "mail_id"))
+	@Column(name = "recipient")
+	private List<String> to;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
