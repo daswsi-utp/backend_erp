@@ -2,10 +2,18 @@ package com.microservice.manufacture.service.impl;
 
 import java.util.List;
 
+import org.springframework.mail.javamail.JavaMailSender;
+
 import com.microservice.manufacture.model.Mail;
 import com.microservice.manufacture.service.EmailService;
 
 public class EmailServiceImpl implements EmailService {
+	
+	private final JavaMailSender mailSender;
+	
+	public EmailServiceImpl(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
 	@Override
 	public void sendHTMLEmail(Mail mail) {
