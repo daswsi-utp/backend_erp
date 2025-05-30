@@ -7,4 +7,6 @@ public interface EmailService {
 	void sendHTMLEmail(Mail mail);
 	
 	void sendSimpleEmail(Mail mail);
+	
+	void sendEmailWithThymeLeaf(Mail mail);
 }
