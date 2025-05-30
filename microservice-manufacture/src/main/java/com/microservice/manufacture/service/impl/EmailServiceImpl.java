@@ -37,6 +37,8 @@ public class EmailServiceImpl implements EmailService {
         message.setContent(mail.getBody(), "text/html; charset=utf-8");
 
         mailSender.send(message);
+        
+        saveEmail(mail);
 	}
 
 	@Override
