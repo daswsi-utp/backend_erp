@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservice.manufacture.model.Mail;
 import com.microservice.manufacture.service.EmailService;
 
+import jakarta.mail.MessagingException;
+
 @RestController
 @RequestMapping("/api/v1/manufacture/mail")
 public class MailController {
@@ -21,7 +23,7 @@ public class MailController {
 	private EmailService emailService;
 	
 	@PostMapping
-	public void sendHTMLEmail(@RequestBody Mail mail) {
+	public void sendHTMLEmail(@RequestBody Mail mail) throws MessagingException {
 		emailService.sendHTMLEmail(mail);
 	}
 	
