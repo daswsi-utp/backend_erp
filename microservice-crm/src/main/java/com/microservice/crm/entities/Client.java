@@ -44,23 +44,38 @@ public class Client {
     @Column(name = "client_status")
     private ClientStatus clientStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "assigned_team_id")
-    private Team assignedTeam;
-
-    @ManyToOne
-    @JoinColumn(name = "assigned_member_id")
-    private Member assignedMember;
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @Column(columnDefinition = "TEXT")
     private String notes;
-
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    // Relación con empleado que atiende el cliente (solo guardamos id)
+    @Column(name = "employee_id", nullable = false)
+    private Long employeeId;
+
+    // Relación con producto de interés (solo id)
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
+
+    // Motivo o razón del cliente (FK)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reason_id")
+    private Reason reason;
+
+    // Medio de llegada (FK)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "arrival_mean_id")
+    private ArrivalMean arrivalMean;
+
+    // Estado o etapa del cliente (FK)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_state_id")
+    private ClientState clientState;
 }
