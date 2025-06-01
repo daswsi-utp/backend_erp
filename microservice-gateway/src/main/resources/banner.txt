@@ -1,5 +1,4 @@
-GATEWAY - microservicio
-GATEWAY - microservicio
-GATEWAY - microservicio
-GATEWAY - microservicio
-GATEWAY - microservicio
+GTEWAY - microservicio
+GTEWAY - microservicio
+GTEWAY - microservicio
+GTEWAY - microservicio
