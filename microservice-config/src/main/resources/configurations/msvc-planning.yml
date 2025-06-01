@@ -4,8 +4,7 @@ server:
 spring:
   application:
     name: msvc-plannig
-  config:
-    import: optional:configserver:http://localhost:8888
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/planning_db

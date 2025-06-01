@@ -1,16 +1,16 @@
+		
 server:
-  port: 8094
+  port: 8095
 
 spring:
   application:
-    name: msvc-plannig
-  config:
-    import: optional:configserver:http://localhost:8888
+    name: msvc-rrhh
+
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/planning_db
-    username: postgres
-    password: 123
+    url: jdbc:postgresql://localhost:5432/rrhh_db
+    username: tefa
+    password: "0203"
 
   jpa:
     hibernate:
@@ -18,6 +18,12 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   
+  servlet:
+    multipart:
+      max-file-size: 70MB
+      max-request-size: 70MB
+
+
 eureka:
   instance:
     hostname: localhost

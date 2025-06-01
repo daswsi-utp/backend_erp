@@ -4,8 +4,7 @@ server:
 spring:
   application:
     name: msvc-manufacture
-  config:
-    import: optional:configserver:http://localhost:8888
+
   mail:
     host: smtp.gmail.com
     port: 587

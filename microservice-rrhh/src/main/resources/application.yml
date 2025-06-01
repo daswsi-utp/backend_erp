@@ -1,19 +1,21 @@
+    
 server:
   port: 8095
 
 spring:
   application:
     name: msvc-rrhh
-
+  config:
+    import: optional:configserver:http://localhost:8888
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/rrhh_db
-    username: postgres
-    password: Yamada
+    username: tefa
+    password: "0203"
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   
@@ -22,8 +24,6 @@ spring:
       max-file-size: 70MB
       max-request-size: 70MB
 
-  config:
-    import: optional:configserver:http://localhost:8888
 
 eureka:
   instance:

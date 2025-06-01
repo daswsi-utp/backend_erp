@@ -1,23 +1,22 @@
 server:
-  port: 8094
+  port: 8091
 
 spring:
   application:
-    name: msvc-plannig
-  config:
-    import: optional:configserver:http://localhost:8888
+    name: msvc-sales
+
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/planning_db
-    username: postgres
-    password: 123
+    url: jdbc:postgresql://localhost:5432/sales_db
+    username: tefa
+    password: 0203
 
   jpa:
     hibernate:
       ddl-auto: create
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  
+
 eureka:
   instance:
     hostname: localhost
