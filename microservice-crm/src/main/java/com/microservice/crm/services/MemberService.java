@@ -5,8 +5,10 @@ import com.microservice.crm.dto.EmployeeDTO;
 import com.microservice.crm.dto.MemberDTO;
 import com.microservice.crm.dto.UpdateMemberDTO;
 import com.microservice.crm.entities.Member;
+import com.microservice.crm.entities.Team;
 import com.microservice.crm.feign.EmployeeFeignClient;
 import com.microservice.crm.repositories.MemberRepository;
+import com.microservice.crm.repositories.TeamRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final EmployeeFeignClient employeeFeignClient;
+    private final TeamRepository teamRepository;
 
-    public MemberService(MemberRepository memberRepository, EmployeeFeignClient employeeFeignClient) {
+    public MemberService(MemberRepository memberRepository,
+                         EmployeeFeignClient employeeFeignClient,
+                         TeamRepository teamRepository) {
         this.memberRepository = memberRepository;
         this.employeeFeignClient = employeeFeignClient;
+        this.teamRepository = teamRepository;
     }
 
     private MemberDTO mapToDTO(Member member) {
@@ -65,6 +71,10 @@ public class MemberService {
         member.setCrmRole(createDTO.getCrmRole());
         member.setStatus(createDTO.getStatus());
 
+        Team defaultTeam = teamRepository.findByName("Sin Asignar")
+                .orElseThrow(() -> new RuntimeException("Equipo 'Sin Asignar' no encontrado"));
+        member.setTeam(defaultTeam);
+
         Member saved = memberRepository.save(member);
         return mapToDTO(saved);
     }
@@ -76,6 +86,15 @@ public class MemberService {
             member.setFullName(updateDTO.getFullName());
             member.setCrmRole(updateDTO.getCrmRole());
             member.setStatus(updateDTO.getStatus());
+
+            // Si quieres también actualizar el team, aquí lo haces (opcional)
+            // Ejemplo:
+            // if (updateDTO.getTeamId() != null) {
+            //     Team team = teamRepository.findById(updateDTO.getTeamId())
+            //         .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+            //     member.setTeam(team);
+            // }
+
             Member updated = memberRepository.save(member);
             return Optional.of(mapToDTO(updated));
         }
