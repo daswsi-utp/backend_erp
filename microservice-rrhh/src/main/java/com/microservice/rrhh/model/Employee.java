@@ -28,12 +28,16 @@ public class Employee {
 	@Column(name = "lastName")
 	private String lastName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
 	private Department department;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
 	@Column(name = "dni")
-	private Long dni;
+	private String dni;
 	
 	@Column(name = "email")
 	private String email;
@@ -58,9 +62,6 @@ public class Employee {
 	
 	@Column(name = "state")
 	private EmployeeState state;
-	
-	@Column(name = "subsidiary")
-	private Long subsidiary;
 	
 	@Column(name = "position")
 	private EmployeePosition position;

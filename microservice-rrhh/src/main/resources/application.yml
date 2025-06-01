@@ -13,10 +13,15 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   
+  servlet:
+    multipart:
+      max-file-size: 70MB
+      max-request-size: 70MB
+
   config:
     import: optional:configserver:http://localhost:8888
 
