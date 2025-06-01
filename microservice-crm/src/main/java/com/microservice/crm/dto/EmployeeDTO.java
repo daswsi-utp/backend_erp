@@ -10,4 +10,5 @@ public class EmployeeDTO {
     private String email;
     private String phone;
     private String dni;
+    private String address;
 }

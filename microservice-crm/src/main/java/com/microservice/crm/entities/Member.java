@@ -3,6 +3,8 @@ package com.microservice.crm.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "members")
 @Getter
@@ -15,26 +17,24 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Referencia al empleado en RRHH
     @Column(name = "employee_id", nullable = false, unique = true)
     private Long employeeId;
 
-    // Nombre completo para mostrar en CRM (ejemplo: "Juan Pérez")
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    // Rol dentro del CRM: "admin_crm", "coordinator_crm", "asesor_crm"
     @Column(name = "crm_role", nullable = false)
     private String crmRole;
 
-    // Equipo al que pertenece el miembro (asesor o coordinador)
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-
     @Column(name = "status")
     private Integer statusCode;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     public Status getStatus() {
         return Status.fromCode(this.statusCode);
