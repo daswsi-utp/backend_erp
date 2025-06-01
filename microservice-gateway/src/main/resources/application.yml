@@ -1,1 +1,48 @@
-spring.application.name=microservice-gateway
+server:
+  port: 8081
+
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: msvc-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: msvc-auth
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/auth/**
+
+        - id: msvc-crm
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/crm/**
+
+        - id: msvc-sales
+          uri: http://localhost:8091
+          predicates:
+            - Path=/api/v1/sales/**
+
+        - id: msvc-logistic
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/v1/logistic/**
+
+        - id: msvc-manufacture
+          uri: http://localhost:8093
+          predicates:
+            - Path=/api/v1/manufacture/**
+
+        - id: msvc-planning
+          uri: http://localhost:8094
+          predicates:
+            - Path=/api/v1/plannig/**
+
+        - id: msvc-rrhh
+          uri: http://localhost:8095
+          predicates:
+            - Path=/api/v1/rrhh/**
