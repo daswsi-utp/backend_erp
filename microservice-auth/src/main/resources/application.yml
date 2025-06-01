@@ -39,6 +39,6 @@ eureka:
 jwt:
   secret: "c2VjcmV0LXNlY3JldC1zZWNyZXQtc2VjcmV0LXNlY3JldA=="
   access-token:
-    expiration: 900000   
+    expiration: 100000   
   refresh-token:
     expiration: 604800000
