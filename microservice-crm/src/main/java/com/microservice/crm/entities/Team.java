@@ -21,6 +21,13 @@ public class Team {
 
     private Integer status;
 
+    // Lista de miembros asignados al equipo (asesores y coordinadores)
     @OneToMany(mappedBy = "team")
     private List<Member> members;
+
+    // Coordinador del equipo (debe ser miembro con crmRole="coordinator_crm")
+    @OneToOne
+    @JoinColumn(name = "coordinator_member_id")
+    private Member coordinator;
 }
+

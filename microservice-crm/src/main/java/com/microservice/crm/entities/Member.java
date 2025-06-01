@@ -1,7 +1,5 @@
 package com.microservice.crm.entities;
 
-
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,20 +15,24 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Referencia al empleado en RRHH
     @Column(name = "employee_id", nullable = false, unique = true)
     private Long employeeId;
 
-    @Column(name = "full_name")
+    // Nombre completo para mostrar en CRM (ejemplo: "Juan Pérez")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "crm_role")
-    private String crmRole;  
-    
+    // Rol dentro del CRM: "admin_crm", "coordinator_crm", "asesor_crm"
+    @Column(name = "crm_role", nullable = false)
+    private String crmRole;
+
+    // Equipo al que pertenece el miembro (asesor o coordinador)
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
+    // Estado (activo, inactivo, etc)
     @Column(name = "status")
-    private Integer status; 
+    private Integer status; // Ej: 1 activo, 0 inactivo
 }
-
