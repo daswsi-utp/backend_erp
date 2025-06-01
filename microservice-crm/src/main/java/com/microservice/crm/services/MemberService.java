@@ -4,10 +4,12 @@ import com.microservice.crm.dto.CreateMemberDTO;
 import com.microservice.crm.dto.MemberDTO;
 import com.microservice.crm.dto.UpdateMemberDTO;
 import com.microservice.crm.entities.Member;
+import com.microservice.crm.feign.EmployeeFeignClient;
 import com.microservice.crm.repositories.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,16 +17,28 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final EmployeeFeignClient employeeFeignClient;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, EmployeeFeignClient employeeFeignClient) {
         this.memberRepository = memberRepository;
+        this.employeeFeignClient = employeeFeignClient;
     }
 
     private MemberDTO mapToDTO(Member member) {
+        Map<String, Object> employeeInfo = null;
+        try {
+            employeeInfo = employeeFeignClient.getEmployeeById(member.getEmployeeId());
+        } catch (Exception e) {
+            employeeInfo = Map.of("firstName", "Desconocido", "lastName", "");
+        }
+        String firstName = (String) employeeInfo.getOrDefault("firstName", "");
+        String lastName = (String) employeeInfo.getOrDefault("lastName", "");
+        String fullName = firstName + " " + lastName;
+
         return new MemberDTO(
                 member.getId(),
                 member.getEmployeeId(),
-                member.getFullName(),
+                fullName,
                 member.getCrmRole(),
                 member.getTeam() != null ? member.getTeam().getId() : null,
                 member.getStatus()
@@ -48,7 +62,6 @@ public class MemberService {
         member.setEmployeeId(createDTO.getEmployeeId());
         member.setFullName(createDTO.getFullName());
         member.setCrmRole(createDTO.getCrmRole());
-        // TODO: Fetch Team entity by createDTO.getTeamId() and set here
         member.setStatus(createDTO.getStatus());
 
         Member saved = memberRepository.save(member);
@@ -61,7 +74,6 @@ public class MemberService {
             Member member = optMember.get();
             member.setFullName(updateDTO.getFullName());
             member.setCrmRole(updateDTO.getCrmRole());
-            // TODO: Fetch Team entity by updateDTO.getTeamId() and set here
             member.setStatus(updateDTO.getStatus());
             Member updated = memberRepository.save(member);
             return Optional.of(mapToDTO(updated));

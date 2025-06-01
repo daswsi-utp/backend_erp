@@ -19,14 +19,12 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    // Endpoint para que admin vea todos los miembros
     @GetMapping
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
         List<MemberDTO> members = memberService.getAllMembers();
         return ResponseEntity.ok(members);
     }
 
-    // Obtener por id
     @GetMapping("/{id}")
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable Long id) {
         return memberService.getMemberById(id)
@@ -41,7 +39,7 @@ public class MemberController {
         return ResponseEntity.ok(created);
     }
 
-    // Actualizar miembro (admin y asesor - según lógica)
+    // Actualizar miembro (admin)
     @PutMapping("/{id}")
     public ResponseEntity<MemberDTO> updateMember(@PathVariable Long id, @RequestBody UpdateMemberDTO updateDTO) {
         return memberService.updateMember(id, updateDTO)
