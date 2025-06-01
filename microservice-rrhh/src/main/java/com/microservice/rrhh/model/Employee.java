@@ -63,9 +63,6 @@ public class Employee {
 	@Column(name = "state")
 	private EmployeeState state;
 	
-	@Column(name = "subsidiary")
-	private Long subsidiary;
-	
 	@Column(name = "position")
 	private EmployeePosition position;
 	

@@ -5,10 +5,5 @@ public enum PermissionState {
     APROBADO,
     RECHAZADO,
     EN_PROCESO,
-    EN_CURSO,
-    FINALIZADO,
-    CANCELADO,
-    PENDIENTE,
-    REVISION,
-    EN_ESPERA
+    FINALIZADO
 }
