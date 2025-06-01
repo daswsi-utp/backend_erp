@@ -31,8 +31,12 @@ public class MemberController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    
+    @GetMapping("/role/{role}")
+    public ResponseEntity<List<MemberDTO>> findByRole(@PathVariable String role) {
+        return ResponseEntity.ok(memberService.findMembersByRole(role));
+    }
 
-    // Crear miembro (solo admin)
     @PostMapping
     public ResponseEntity<MemberDTO> createMember(@RequestBody CreateMemberDTO createDTO) {
         MemberDTO created = memberService.createMember(createDTO);

@@ -32,7 +32,15 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    // Estado (activo, inactivo, etc)
+
     @Column(name = "status")
-    private Integer status; // Ej: 1 activo, 0 inactivo
+    private Integer statusCode;
+
+    public Status getStatus() {
+        return Status.fromCode(this.statusCode);
+    }
+
+    public void setStatus(Status status) {
+        this.statusCode = status.getCode();
+    }
 }

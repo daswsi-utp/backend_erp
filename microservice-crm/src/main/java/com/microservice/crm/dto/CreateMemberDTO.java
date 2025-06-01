@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 public class CreateMemberDTO {
     private Long employeeId;
-    private String fullName;
     private String crmRole;
     private Long teamId;
     private Integer status;

@@ -19,15 +19,23 @@ public class Team {
 
     private String name;
 
-    private Integer status;
+    // Guardamos el código numérico en BD, por eso no usamos @Enumerated
+    @Column(name = "status")
+    private Integer statusCode;
 
-    // Lista de miembros asignados al equipo (asesores y coordinadores)
     @OneToMany(mappedBy = "team")
     private List<Member> members;
 
-    // Coordinador del equipo (debe ser miembro con crmRole="coordinator_crm")
     @OneToOne
     @JoinColumn(name = "coordinator_member_id")
     private Member coordinator;
-}
 
+
+    public TeamStatus getStatus() {
+        return TeamStatus.fromCode(this.statusCode);
+    }
+
+    public void setStatus(TeamStatus status) {
+        this.statusCode = status.getCode();
+    }
+}

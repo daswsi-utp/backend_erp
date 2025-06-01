@@ -1,6 +1,7 @@
 package com.microservice.crm.config;
 
 import com.microservice.crm.entities.Team;
+import com.microservice.crm.entities.TeamStatus;
 import com.microservice.crm.repositories.TeamRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ public class DataInitializer {
 	        if (teamOpt.isEmpty()) {
 	            Team defaultTeam = new Team();
 	            defaultTeam.setName("Sin Asignar");
-	            defaultTeam.setStatus(1); // activo
+	            defaultTeam.setStatus(TeamStatus.ACTIVE); // activo
 
 	            teamRepository.save(defaultTeam);
 	            System.out.println("Equipo 'Sin Asignar' creado.");

@@ -5,6 +5,7 @@ import com.microservice.crm.dto.EmployeeDTO;
 import com.microservice.crm.dto.MemberDTO;
 import com.microservice.crm.dto.UpdateMemberDTO;
 import com.microservice.crm.entities.Member;
+import com.microservice.crm.entities.Status;
 import com.microservice.crm.entities.Team;
 import com.microservice.crm.feign.EmployeeFeignClient;
 import com.microservice.crm.repositories.MemberRepository;
@@ -48,7 +49,7 @@ public class MemberService {
                 fullName.trim(),
                 member.getCrmRole(),
                 member.getTeam() != null ? member.getTeam().getId() : null,
-                member.getStatus()
+                member.getStatus().getCode()
         );
     }
 
@@ -67,9 +68,21 @@ public class MemberService {
     public MemberDTO createMember(CreateMemberDTO createDTO) {
         Member member = new Member();
         member.setEmployeeId(createDTO.getEmployeeId());
-        member.setFullName(createDTO.getFullName());
         member.setCrmRole(createDTO.getCrmRole());
-        member.setStatus(createDTO.getStatus());
+        member.setStatus(Status.fromCode(createDTO.getStatus()));
+
+        
+        EmployeeDTO employeeInfo;
+        try {
+            employeeInfo = employeeFeignClient.getEmployeeById(createDTO.getEmployeeId());
+        } catch (Exception e) {
+            employeeInfo = new EmployeeDTO();
+            employeeInfo.setFirstName("Desconocido");
+            employeeInfo.setLastName("");
+        }
+
+        String fullName = employeeInfo.getFirstName() + " " + employeeInfo.getLastName();
+        member.setFullName(fullName.trim());
 
         Team defaultTeam = teamRepository.findByName("Sin Asignar")
                 .orElseThrow(() -> new RuntimeException("Equipo 'Sin Asignar' no encontrado"));
@@ -79,27 +92,27 @@ public class MemberService {
         return mapToDTO(saved);
     }
 
+
     public Optional<MemberDTO> updateMember(Long id, UpdateMemberDTO updateDTO) {
         Optional<Member> optMember = memberRepository.findById(id);
         if (optMember.isPresent()) {
             Member member = optMember.get();
             member.setFullName(updateDTO.getFullName());
             member.setCrmRole(updateDTO.getCrmRole());
-            member.setStatus(updateDTO.getStatus());
+            member.setStatus(Status.fromCode(updateDTO.getStatus()));
 
-            // Si quieres también actualizar el team, aquí lo haces (opcional)
-            // Ejemplo:
-            // if (updateDTO.getTeamId() != null) {
-            //     Team team = teamRepository.findById(updateDTO.getTeamId())
-            //         .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
-            //     member.setTeam(team);
-            // }
+            if (updateDTO.getTeamId() != null) {
+                Team team = teamRepository.findById(updateDTO.getTeamId())
+                        .orElseThrow(() -> new RuntimeException("Equipo no encontrado"));
+                member.setTeam(team);
+            }
 
             Member updated = memberRepository.save(member);
             return Optional.of(mapToDTO(updated));
         }
         return Optional.empty();
     }
+    
 
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);

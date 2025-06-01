@@ -2,6 +2,7 @@ package com.microservice.crm.entities;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,5 +25,14 @@ public class TeamCoordinator {
 
     private LocalDateTime dateAssigned;
 
-    private Integer status;
+    @Column(name = "status")
+    private Integer statusCode;
+
+    public Status getStatus() {
+        return Status.fromCode(this.statusCode);
+    }
+
+    public void setStatus(Status status) {
+        this.statusCode = status.getCode();
+    }
 }
