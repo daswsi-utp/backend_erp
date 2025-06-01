@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.microservice.crm.clients")
+@EnableFeignClients(basePackages = "com.microservice.crm.feign")
 public class MicroserviceCrmApplication {
 
 	public static void main(String[] args) {

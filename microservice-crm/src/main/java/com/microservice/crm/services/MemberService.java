@@ -1,6 +1,7 @@
 package com.microservice.crm.services;
 
 import com.microservice.crm.dto.CreateMemberDTO;
+import com.microservice.crm.dto.EmployeeDTO;
 import com.microservice.crm.dto.MemberDTO;
 import com.microservice.crm.dto.UpdateMemberDTO;
 import com.microservice.crm.entities.Member;
@@ -9,7 +10,6 @@ import com.microservice.crm.repositories.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,20 +25,21 @@ public class MemberService {
     }
 
     private MemberDTO mapToDTO(Member member) {
-        Map<String, Object> employeeInfo = null;
+        EmployeeDTO employeeInfo;
         try {
             employeeInfo = employeeFeignClient.getEmployeeById(member.getEmployeeId());
         } catch (Exception e) {
-            employeeInfo = Map.of("firstName", "Desconocido", "lastName", "");
+            employeeInfo = new EmployeeDTO();
+            employeeInfo.setFirstName("Desconocido");
+            employeeInfo.setLastName("");
         }
-        String firstName = (String) employeeInfo.getOrDefault("firstName", "");
-        String lastName = (String) employeeInfo.getOrDefault("lastName", "");
-        String fullName = firstName + " " + lastName;
+
+        String fullName = employeeInfo.getFirstName() + " " + employeeInfo.getLastName();
 
         return new MemberDTO(
                 member.getId(),
                 member.getEmployeeId(),
-                fullName,
+                fullName.trim(),
                 member.getCrmRole(),
                 member.getTeam() != null ? member.getTeam().getId() : null,
                 member.getStatus()

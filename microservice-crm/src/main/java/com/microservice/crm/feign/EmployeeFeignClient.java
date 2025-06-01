@@ -4,11 +4,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Map;
+import com.microservice.crm.dto.EmployeeDTO;
 
-@FeignClient(name = "rrhh-service", url = "${rrhh.service.url}")
+
+@FeignClient(name = "msvc-rrhh")
 public interface EmployeeFeignClient {
 
-    @GetMapping("/api/v1/rrhh/employees/{id}")
-    Map<String, Object> getEmployeeById(@PathVariable("id") Long id);
+	@GetMapping("/api/v1/rrhh/employee/{id}")
+	EmployeeDTO getEmployeeById(@PathVariable("id") Long id);
 }
