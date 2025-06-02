@@ -27,6 +27,10 @@ public class JwtService {
     @Value("${jwt.refresh-token.expiration}")
     private Long refreshTokenExpiration;
 
+    public Long getAccessTokenExpiration() {
+        return accessTokenExpiration;
+    }
+    
     public Long getRefreshTokenExpiration() {
         return refreshTokenExpiration;
     }
@@ -43,6 +47,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(user.getEmail())
                 .claim("dni", user.getDni())
+                .claim("role", user.getRoleName()) 
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)

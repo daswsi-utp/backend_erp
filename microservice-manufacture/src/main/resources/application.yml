@@ -4,7 +4,8 @@ server:
 spring:
   application:
     name: msvc-manufacture
-
+  config:
+    import: optional:configserver:http://localhost:8888
   mail:
     host: smtp.gmail.com
     port: 587
@@ -29,9 +30,7 @@ spring:
       ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  
-  config:
-    import: optional:configserver:http://localhost:8888
+
 
 eureka:
   instance:
