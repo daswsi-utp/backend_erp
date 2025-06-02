@@ -16,7 +16,7 @@ import com.microservice.planning.entities.Plan;
 import com.microservice.planning.services.PlanService;
 
 @RestController
-@RequestMapping("/api/planning/plan")
+@RequestMapping("/api/v1/planning/plan")
 public class PlanController {
 	
 	@Autowired
@@ -43,4 +43,8 @@ public class PlanController {
 		planService.deletePlan(id);
 	}
 	
+	@GetMapping("{id}")
+	public Plan getById(@PathVariable Integer id) {
+		return planService.getPlanById(id);
+	}
 }
