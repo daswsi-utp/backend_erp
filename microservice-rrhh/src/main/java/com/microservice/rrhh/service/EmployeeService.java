@@ -44,6 +44,7 @@ public class EmployeeService {
 	
 	public Employee createEmployee(Employee employee){
 		System.out.println("ENTRO 000");
+		employee.setAccount("DESACTIVADO");
 		Employee employeeNew = employeeRepository.save(employee);
 		Optional<Department> departEmp = departmentService.getDepartmentById(employeeNew.getDepartment().getId());
 		System.out.println("ENTRO 1111");
