@@ -49,6 +49,10 @@ public class SaleService {
     public List<Sale> getAllSales() {
         return saleRepository.findAll();
     }
+    
+    public List<Sale> getSalesByStatus(DeliveryStatus status) {
+        return saleRepository.findByDeliveryStatus(status);
+    }
 
 	
 
