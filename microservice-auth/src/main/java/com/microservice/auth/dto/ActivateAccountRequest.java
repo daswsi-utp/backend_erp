@@ -23,4 +23,6 @@ public class ActivateAccountRequest {
 	    @NotBlank(message = "La confirmación de contraseña no puede estar vacía")
 	    @Size(min = 8, message = "La confirmación debe tener al menos 8 caracteres")
 	    private String passwordConfirmation;
+	    
+	    private String roleName;  
 	}	
