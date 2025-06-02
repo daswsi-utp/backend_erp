@@ -23,5 +23,49 @@ public class ClientService {
     private final ProductRepository productRepository;
     private final ReasonRepository reasonRepository;
     private final ArrivalMeanRepository arrivalMeanRepository;
+    
+    public ClientService(ClientRepository clientRepository,
+            ClientStateRepository clientStateRepository,
+            ProductRepository productRepository,
+            ReasonRepository reasonRepository,
+            ArrivalMeanRepository arrivalMeanRepository) {
+				this.clientRepository = clientRepository;
+				this.clientStateRepository = clientStateRepository;
+				this.productRepository = productRepository;
+				this.reasonRepository = reasonRepository;
+				this.arrivalMeanRepository = arrivalMeanRepository;
+    		}
+    public ClientDTO createClient(CreateClientDTO dto) {
+        Client client = new Client();
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setEmail(dto.getEmail());
+        client.setPhone(dto.getPhone());
+        client.setWhatsapp(dto.getWhatsapp());
+        client.setCountry(dto.getCountry());
+        client.setCountryCode(dto.getCountryCode());
+        client.setCity(dto.getCity());
+        client.setAddress(dto.getAddress());
+        client.setCompanyName(dto.getCompanyName());
+        client.setJobTitle(dto.getJobTitle());
+        client.setBirthDate(dto.getBirthDate());
+        client.setNotes(dto.getNotes());
+        client.setEmployeeId(dto.getEmployeeId());
 
+        clientStateRepository.findById(dto.getClientStateId())
+                .ifPresent(client::setClientState);
+
+        productRepository.findById(dto.getProductId())
+                .ifPresent(client::setProduct);
+
+        reasonRepository.findById(dto.getReasonId())
+                .ifPresent(client::setReason);
+
+        arrivalMeanRepository.findById(dto.getArrivalMeanId())
+                .ifPresent(client::setArrivalMean);
+
+        Client saved = clientRepository.save(client);
+
+        return mapToDTO(saved);
+    }
 }
