@@ -53,4 +53,9 @@ public class SaleController {
 	    public ResponseEntity<List<Sale>> getAllSales() {
 	        return ResponseEntity.ok(saleService.getAllSales());
 	    }
+	   
+	   @GetMapping("/status/{status}")
+	    public ResponseEntity<List<Sale>> getSalesByStatus(@PathVariable DeliveryStatus status) {
+	        return ResponseEntity.ok(saleService.getSalesByStatus(status));
+	    }
 }
