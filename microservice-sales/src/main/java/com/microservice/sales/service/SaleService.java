@@ -45,6 +45,10 @@ public class SaleService {
         sale.setDeliveryStatus(status);
         return saleRepository.save(sale);
     }
+    
+    public List<Sale> getAllSales() {
+        return saleRepository.findAll();
+    }
 
 	
 
