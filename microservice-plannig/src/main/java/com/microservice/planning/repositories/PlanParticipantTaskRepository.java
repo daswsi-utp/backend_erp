@@ -8,5 +8,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlanParticipantTaskRepository extends JpaRepository<PlanParticipantTask, PlanParticipantTaskId> {
-	List<PlanParticipantTask> findByPlan_PlanIdAndParticipant_ParticipantId(int planId, int participantId);
+
 }

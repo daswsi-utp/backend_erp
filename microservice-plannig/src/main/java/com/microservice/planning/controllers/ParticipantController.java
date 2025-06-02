@@ -16,7 +16,7 @@ import com.microservice.planning.entities.Participant;
 import com.microservice.planning.services.ParticipantService;
 
 @RestController
-@RequestMapping("/api/planning/participant")
+@RequestMapping("/api/v1/planning/participant")
 public class ParticipantController {
 	
 	@Autowired

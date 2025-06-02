@@ -55,17 +55,20 @@ public class AssignmentService {
         planParticipantTaskRepository.save(ppt);
     }
     
-    public List<Participant> getParticipantsByPlan(int planId) {
-        return planParticipantRepository.findByPlan_PlanId(planId)
-                .stream()
-                .map(PlanParticipant::getParticipant)
-                .toList();
+    public List<Participant> getParticipantsByPlan(int planId) {        
+        return planParticipantRepository.findAll()
+        		.stream()
+        		.filter( e-> e.getId().getPlanId() == planId)
+        		.map(PlanParticipant::getParticipant)
+        		.toList();
     }
 
     public List<Task> getTasksOfParticipantInPlan(int planId, int participantId) {
-        return planParticipantTaskRepository.findByPlan_PlanIdAndParticipant_ParticipantId(planId, participantId)
-                .stream()
-                .map(PlanParticipantTask::getTask)
-                .toList();
+        return planParticipantTaskRepository.findAll()
+        		.stream()
+        		.filter(e -> e.getId().getPlanId()==planId)
+        		.filter(e -> e.getId().getParticipantId()==participantId)
+        		.map(PlanParticipantTask::getTask)
+        		.toList();
     }
 }
