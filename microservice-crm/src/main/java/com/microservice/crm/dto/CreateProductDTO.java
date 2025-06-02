@@ -1,7 +1,6 @@
 package com.microservice.crm.dto;
 
 import lombok.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -9,8 +8,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductDTO {
-    private Long id;
+public class CreateProductDTO {
     private String name;
     private Double pricePen;
     private Double priceDollar;

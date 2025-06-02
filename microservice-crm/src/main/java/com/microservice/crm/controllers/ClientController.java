@@ -12,22 +12,26 @@ import java.util.Optional;
 @RequestMapping("/api/v1/crm/clients")
 public class ClientController {
 
-	private final ClientService clientService;
+    private final ClientService clientService;
 
     public ClientController(ClientService clientService){
         this.clientService = clientService;
     }
     
     @PostMapping
-    public ResponseEntity<ClientDTO> createClient(@RequestBody CreateClientDTO dto){
-        ClientDTO created = clientService.createClient(dto);
-        return ResponseEntity.ok(created);
+    public ResponseEntity<?> createClient(@RequestBody CreateClientDTO dto){
+        Optional<ClientDTO> created = clientService.createClient(dto);
+        if (created.isPresent()) {
+            return ResponseEntity.ok(created.get());
+        } else {
+            return ResponseEntity.status(422).body("Client with this phone and product already exists");
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClient(@PathVariable Long id){
         Optional<ClientDTO> client = clientService.getClient(id);
-        return client.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return client.map(ResponseEntity::ok)
+                     .orElse(ResponseEntity.notFound().build());
     }
-
 }

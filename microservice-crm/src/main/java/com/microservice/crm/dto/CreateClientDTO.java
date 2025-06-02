@@ -1,7 +1,6 @@
 package com.microservice.crm.dto;
 
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Getter

@@ -1,5 +1,6 @@
 package com.microservice.crm.controllers;
 
+import com.microservice.crm.dto.CreateProductDTO;
 import com.microservice.crm.dto.ProductDTO;
 import com.microservice.crm.services.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,12 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         return ResponseEntity.ok(productService.getAllProducts());
     }
+    
+    @PostMapping
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody CreateProductDTO dto) {
+        ProductDTO created = productService.createProduct(dto);
+        return ResponseEntity.ok(created);
+    }
+
 
 }

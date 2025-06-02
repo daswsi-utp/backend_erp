@@ -22,10 +22,10 @@ public class Product {
     private String name;
     
     @Column(precision = 6, scale = 2)
-    private BigDecimal pricePen;
+    private Double pricePen;
     
     @Column(precision = 6, scale = 2)
-    private BigDecimal priceDollar;
+    private Double priceDollar;
     
     @Column(nullable = false)
     private LocalDate start;
