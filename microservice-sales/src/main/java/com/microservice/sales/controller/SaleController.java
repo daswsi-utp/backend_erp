@@ -18,16 +18,14 @@ import com.microservice.sales.model.DeliveryStatus;
 import com.microservice.sales.model.Sale;
 import com.microservice.sales.service.SaleService;
 
-
 @RestController
 @RequestMapping("/api/v1/sales/transactions")
-
 public class SaleController {
-	
-	@Autowired
+
+    @Autowired
     private SaleService saleService;
 
-	@PostMapping("/from-quote/{quoteId}")
+    @PostMapping("/from-quote/{quoteId}")
     public ResponseEntity<?> createSaleFromQuote(
         @PathVariable Long quoteId,
         @RequestBody String deliveryAddress) {
@@ -44,18 +42,18 @@ public class SaleController {
         }
     }
 
-	   @PutMapping("/{saleId}/status")
-	    public ResponseEntity<Sale> updateStatus(@PathVariable Long saleId, @RequestBody DeliveryStatus status) {
-	        return ResponseEntity.ok(saleService.updateStatus(saleId, status));
-	    }
-	   
-	   @GetMapping
-	    public ResponseEntity<List<Sale>> getAllSales() {
-	        return ResponseEntity.ok(saleService.getAllSales());
-	    }
-	   
-	   @GetMapping("/status/{status}")
-	    public ResponseEntity<List<Sale>> getSalesByStatus(@PathVariable DeliveryStatus status) {
-	        return ResponseEntity.ok(saleService.getSalesByStatus(status));
-	    }
+    @PutMapping("/{saleId}/status")
+    public ResponseEntity<Sale> updateStatus(@PathVariable Long saleId, @RequestBody DeliveryStatus status) {
+        return ResponseEntity.ok(saleService.updateStatus(saleId, status));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Sale>> getAllSales() {
+        return ResponseEntity.ok(saleService.getAllSales());
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Sale>> getSalesByStatus(@PathVariable DeliveryStatus status) {
+        return ResponseEntity.ok(saleService.getSalesByStatus(status));
+    }
 }

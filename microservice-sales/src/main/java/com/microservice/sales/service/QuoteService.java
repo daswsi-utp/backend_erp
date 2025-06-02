@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.microservice.sales.client.EmployeeClient;
 import com.microservice.sales.dto.DetailQuoteDTO;
 import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.DetailQuote;
@@ -23,8 +22,6 @@ public class QuoteService {
 	@Autowired
 	private QuoteRepository quoteRepository;
 	
-	@Autowired
-	private EmployeeClient employeeClient;
 	
 	public List<quote> getQuotes(){return quoteRepository.findAll();}
 	public Optional<quote> getQuotesById(Long id) {return quoteRepository.findById(id);}

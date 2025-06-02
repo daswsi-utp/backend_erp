@@ -14,13 +14,13 @@ import com.microservice.sales.repository.SaleRepository;
 
 @Service
 public class SaleService {
-	
-	@Autowired
+
+    @Autowired
     private SaleRepository saleRepository;
 
     @Autowired
     private QuoteService quoteService;
-    
+
     public Sale createSaleFromQuote(Long quoteId, String deliveryAddress) {
         quote quote = quoteService.getQuotesById(quoteId)
             .orElseThrow(() -> new RuntimeException("Cotización no encontrada"));
@@ -37,7 +37,7 @@ public class SaleService {
 
         return saleRepository.save(sale);
     }
-    
+
     public Sale updateStatus(Long saleId, DeliveryStatus status) {
         Sale sale = saleRepository.findById(saleId)
             .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
@@ -45,15 +45,12 @@ public class SaleService {
         sale.setDeliveryStatus(status);
         return saleRepository.save(sale);
     }
-    
+
     public List<Sale> getAllSales() {
         return saleRepository.findAll();
     }
-    
+
     public List<Sale> getSalesByStatus(DeliveryStatus status) {
         return saleRepository.findByDeliveryStatus(status);
     }
-
-	
-
 }

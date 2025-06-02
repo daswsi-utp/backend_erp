@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.sales.client.EmployeeClient;
 import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.quote;
 import com.microservice.sales.service.QuoteService;
@@ -26,8 +25,6 @@ public class QuoteController {
 	@Autowired
 	private QuoteService quoteService;
 	
-	@Autowired
-	private EmployeeClient employeeClient;
 	
 	@GetMapping
 	public ResponseEntity<List<quote>> getQuotes(){return ResponseEntity.ok(quoteService.getQuotes());}
