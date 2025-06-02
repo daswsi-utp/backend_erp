@@ -42,7 +42,7 @@ spring:
         - id: msvc-planning
           uri: http://localhost:8094
           predicates:
-            - Path=/api/v1/plannig/**
+            - Path=/api/v1/planning/**
 
         - id: msvc-rrhh
           uri: http://localhost:8095
