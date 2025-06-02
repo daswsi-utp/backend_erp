@@ -5,7 +5,9 @@ spring:
   application:
     name: msvc-gateway
   config:
-    import: optional:configserver:http://localhost:8888   
+    import: optional:configserver:http://localhost:8888
+  main:
+    web-application-type: reactive   
   cloud:
     gateway:
       discovery:
