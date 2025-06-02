@@ -17,5 +17,24 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-
+    public List<ProductDTO> getAllProducts(){
+        return productRepository.findAll()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    private ProductDTO mapToDTO(Product p){
+        return ProductDTO.builder()
+                .id(p.getId())
+                .name(p.getName())
+                .pricePen(p.getPricePen())
+                .priceDollar(p.getPriceDollar())
+                .start(p.getStart())
+                .code(p.getCode())
+                .status(p.getStatus())
+                .cover(p.getCover())
+                .description(p.getDescription())
+                .build();
+    }
 }
