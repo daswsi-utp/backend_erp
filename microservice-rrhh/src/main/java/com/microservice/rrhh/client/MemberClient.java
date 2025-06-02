@@ -1,0 +1,15 @@
+package com.microservice.rrhh.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.microservice.rrhh.dto.MemberDTO;
+
+@FeignClient(name = "msvc-crm", url = "localhost:8090/api/v1/crm/members")
+public interface MemberClient {
+	
+	@PostMapping
+	void createMember(@RequestBody MemberDTO memberDTO);
+	
+}

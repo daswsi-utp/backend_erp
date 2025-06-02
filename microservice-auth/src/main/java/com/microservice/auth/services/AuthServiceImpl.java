@@ -81,7 +81,7 @@ public class AuthServiceImpl implements IAuthService {
                 .dni(request.getDni())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .active(true)
-                .roleName("ADMIN")
+                .roleName(request.getRoleName())
                 .build();
 
         return userRepository.save(newUser);
@@ -117,9 +117,19 @@ public class AuthServiceImpl implements IAuthService {
         }
 
         String newAccessToken = jwtService.generateAccessToken(user);
+        Date accessTokenExpiry = new Date(System.currentTimeMillis() + jwtService.getAccessTokenExpiration());
+        
+        refreshTokenRepository.save(storedRefreshToken);
+        
         return TokenRefreshResponse.builder()
                 .accessToken(newAccessToken)
-                .refreshToken(refreshToken)  
+                .refreshToken(refreshToken)
+                .email(user.getEmail())
+                .dni(user.getDni())
+                .id(user.getId())
+                .roleName(user.getRoleName())
+                .expireAt(accessTokenExpiry) 
+                .message("Token refrescado exitosamente")
                 .build();
     }
 

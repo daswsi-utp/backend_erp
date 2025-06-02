@@ -4,21 +4,33 @@ server:
 spring:
   application:
     name: msvc-manufacture
+  config:
+    import: optional:configserver:http://localhost:8888
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: eng27.26.25@gmail.com
+    password: bsoi byxh dwfu nmqu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+           enable: true
+    protocol: smtp
 
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/manufacture_db
-    username: tefa
-    password: 0203
+    username: postgres
+    password: Yamada
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  
-  config:
-    import: optional:configserver:http://localhost:8888
+
 
 eureka:
   instance:

@@ -23,6 +23,8 @@ public class EmployeeService {
 	
 	public List<Employee> getEmployeesByDepartmentId(Long id){return employeeRepository.findAllByDepartment_Id(id);}
 	
+	public List<Employee> getEmployeesByRoleId(Long id){return employeeRepository.findAllByRole_Id(id);}
+	
 	public List<Employee> getEmployeeByState(EmployeeState employeeState){return employeeRepository.findByState(employeeState);}
 	
 	public List<Employee> getEmployeeByPosition(EmployeePosition employeePosition){return employeeRepository.findByPosition(employeePosition);}

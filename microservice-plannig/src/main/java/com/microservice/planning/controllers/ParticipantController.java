@@ -16,15 +16,15 @@ import com.microservice.planning.entities.Participant;
 import com.microservice.planning.services.ParticipantService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api/planning/participant")
 public class ParticipantController {
 	
 	@Autowired
 	private ParticipantService participantService;
 	
 	@GetMapping
-	public List<Participant> listarAuditorias() {
-		return participantService.getParticipant();
+	public List<Participant> listParticipants() {
+		return participantService.getParticipants();
 	}
 
 	@PostMapping("create")

@@ -21,7 +21,7 @@ public class Vacation {
 	@Column(name = "id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
