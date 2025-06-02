@@ -21,10 +21,10 @@ public class Product {
     @Column(nullable = false)
     private String name;
     
-    @Column(precision = 6, scale = 2)
+    @Column
     private Double pricePen;
     
-    @Column(precision = 6, scale = 2)
+    @Column
     private Double priceDollar;
     
     @Column(nullable = false)

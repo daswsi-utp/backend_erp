@@ -11,36 +11,38 @@ import com.microservice.crm.repositories.ClientRepository;
 import com.microservice.crm.repositories.ClientStateRepository;
 import com.microservice.crm.repositories.ProductRepository;
 import com.microservice.crm.repositories.ReasonRepository;
+
 import com.microservice.crm.repositories.ArrivalMeanRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class ClientService {
-	
-	private final ClientRepository clientRepository;
+
+    private final ClientRepository clientRepository;
     private final ClientStateRepository clientStateRepository;
     private final ProductRepository productRepository;
     private final ReasonRepository reasonRepository;
     private final ArrivalMeanRepository arrivalMeanRepository;
-    
-    public ClientService(ClientRepository clientRepository,
-            ClientStateRepository clientStateRepository,
-            ProductRepository productRepository,
-            ReasonRepository reasonRepository,
-            ArrivalMeanRepository arrivalMeanRepository) {
-				this.clientRepository = clientRepository;
-				this.clientStateRepository = clientStateRepository;
-				this.productRepository = productRepository;
-				this.reasonRepository = reasonRepository;
-				this.arrivalMeanRepository = arrivalMeanRepository;
-    		}
 
-    // Método para normalizar teléfono (sin espacios y con prefijo)
+    public ClientService(ClientRepository clientRepository,
+                         ClientStateRepository clientStateRepository,
+                         ProductRepository productRepository,
+                         ReasonRepository reasonRepository,
+                         ArrivalMeanRepository arrivalMeanRepository) {
+        this.clientRepository = clientRepository;
+        this.clientStateRepository = clientStateRepository;
+        this.productRepository = productRepository;
+        this.reasonRepository = reasonRepository;
+        this.arrivalMeanRepository = arrivalMeanRepository;
+    }
+
+    // Normaliza teléfono para guardarlo con prefijo
     private String normalizePhone(String phone, String countryCode) {
         if (phone == null) return null;
         String phoneAux = phone.replaceAll("\\s", "").trim();
@@ -55,13 +57,16 @@ public class ClientService {
         return phoneAux;
     }
 
+    public boolean existsByPhoneAndProduct(String phone, Long productId) {
+        return clientRepository.existsByPhoneAndProductId(phone.trim(), productId);
+    }
+
     public Optional<ClientDTO> createClient(CreateClientDTO dto) {
         String phoneAux = normalizePhone(dto.getPhone(), dto.getCountryCode());
 
-        
         boolean exists = clientRepository.existsByPhoneAndProductId(phoneAux, dto.getProductId());
         if (exists) {
-            return Optional.empty(); 
+            return Optional.empty(); // No crear duplicado
         }
 
         Client client = new Client();
@@ -81,7 +86,6 @@ public class ClientService {
         client.setEmployeeId(dto.getEmployeeId());
         client.setCreatedAt(LocalDateTime.now());
 
-        // Setear relaciones
         clientStateRepository.findById(dto.getClientStateId()).ifPresent(client::setClientState);
         productRepository.findById(dto.getProductId()).ifPresent(client::setProduct);
         reasonRepository.findById(dto.getReasonId()).ifPresent(client::setReason);
@@ -94,7 +98,7 @@ public class ClientService {
     public Optional<ClientDTO> getClient(Long id) {
         return clientRepository.findById(id).map(this::mapToDTO);
     }
-    
+
     private ClientDTO mapToDTO(Client client) {
         return ClientDTO.builder()
                 .id(client.getId())
