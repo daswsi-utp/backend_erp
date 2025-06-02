@@ -57,6 +57,9 @@ public class Employee {
 	@Column(name = "emergencyPhone")
 	private String emergencyContactPhone;
 	
+	@Column(name = "account")
+	private String account;
+	
 	@Column(name = "gender")
 	private EmployeeGender gender;
 	
