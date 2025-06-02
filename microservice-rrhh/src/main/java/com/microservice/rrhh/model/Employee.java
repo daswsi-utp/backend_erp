@@ -28,8 +28,9 @@ public class Employee {
 	@Column(name = "lastName")
 	private String lastName;
 	
+		
 	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
+	@JoinColumn(name = "department_id")
 	private Department department;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -69,6 +70,5 @@ public class Employee {
 	@Column(name = "position")
 	private EmployeePosition position;
 	
-	
-	
+
 }
