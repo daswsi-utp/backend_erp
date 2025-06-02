@@ -69,4 +69,8 @@ public class Client {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "arrival_mean_id")
     private ArrivalMean arrivalMean;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
 }
