@@ -11,6 +11,6 @@ import com.microservice.sales.dto.EmployeeDTO;
 @FeignClient(name = "msvc-rrhh", url = "http://localhost:8091/api/v1/rrhh/employee")
 public interface EmployeeClient {
 	
-	 @GetMapping("/{id}")
-	 EmployeeDTO getEmployeeById(@PathVariable("id") Long id);
+	//@GetMapping("/position/{employeePosition}")  // 👈 Mismo endpoint que en el otro microservicio
+	//List<Employee> getEmployeesByPosition(@PathVariable("employeePosition") String employeePosition);
 }

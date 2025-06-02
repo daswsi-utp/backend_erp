@@ -29,7 +29,8 @@ public class Employee {
 	private String lastName;
 	
 		
-    @JoinColumn(name = "department_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "department_id")
 	private Department department;
 	
 	@Column(name = "dni")

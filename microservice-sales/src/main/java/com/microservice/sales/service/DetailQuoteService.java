@@ -37,11 +37,9 @@ public class DetailQuoteService {
 
 	    detailQuote.setTotal(total);
 
-	    return detailQuoteRepository.save(detailQuote);
-	    
+	    return detailQuoteRepository.save(detailQuote);	    
 	    
 	}
-
 
 	public void deleteDetailQuote (Long id) {detailQuoteRepository.deleteById(id);}
 	public List<DetailQuote> getDetailsByQuoteId(Long quoteId) {

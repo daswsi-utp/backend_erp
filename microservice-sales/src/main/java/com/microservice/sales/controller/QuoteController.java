@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.sales.client.EmployeeClient;
 import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.quote;
 import com.microservice.sales.service.QuoteService;
@@ -24,6 +25,9 @@ public class QuoteController {
 	
 	@Autowired
 	private QuoteService quoteService;
+	
+	@Autowired
+	private EmployeeClient employeeClient;
 	
 	@GetMapping
 	public ResponseEntity<List<quote>> getQuotes(){return ResponseEntity.ok(quoteService.getQuotes());}
@@ -42,8 +46,12 @@ public class QuoteController {
 	
 	
 	
-	@PutMapping
-	public ResponseEntity<quote> updateQuote(@RequestBody quote quoten){return ResponseEntity.ok(quoteService.updateQuote(quoten));}
+	@PutMapping("/{id}")
+	public ResponseEntity<quote> updateQuote(@PathVariable Long id, @RequestBody quote quoten) {
+	    return ResponseEntity.ok(quoteService.updateQuote(id, quoten));
+	}
+
+
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteQuote (@PathVariable Long id){
@@ -57,5 +65,11 @@ public class QuoteController {
 	public ResponseEntity<List<quote>> getApprovedQuotes() {
 	    return ResponseEntity.ok(quoteService.getQuotesByState(com.microservice.sales.model.State.APPROVED));
 	}
+	
+	//@GetMapping("/employees/{position}")
+   // public ResponseEntity<List<Employee>> getEmployeesByPosition(@PathVariable String position) {
+        //List<Employee> employees = employeeClient.getEmployeesByPosition(position);
+        //return ResponseEntity.ok(employees);
+    //}
 
 }

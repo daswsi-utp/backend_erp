@@ -71,19 +71,21 @@ public class QuoteService {
 	
 	
 	
-	public quote updateQuote(quote quoteUpdate) {
-	    return quoteRepository.findById(quoteUpdate.getId()).map(existingQuote -> {
+	public quote updateQuote(Long id, quote quoteUpdate) {
+	    return quoteRepository.findById(id).map(existingQuote -> {
+	        // Verifica que el ID del objeto a actualizar coincida con el ID proporcionado
+	        if (!existingQuote.getId().equals(quoteUpdate.getId())) {
+	            throw new IllegalArgumentException("El ID de la cotización no coincide.");
+	        }
+
 	        // Actualizar solo campos permitidos
-	        existingQuote.setIssueDate(quoteUpdate.getIssueDate());
 	        existingQuote.setExpirationDate(quoteUpdate.getExpirationDate());
 	        existingQuote.setState(quoteUpdate.getState());
-	        existingQuote.setClientId(quoteUpdate.getClientId());
-	        existingQuote.setEmployeeId(quoteUpdate.getEmployeeId());
 	        existingQuote.setTypePayment(quoteUpdate.getTypePayment());
 	        existingQuote.setObservation(quoteUpdate.getObservation());
-	        
+
 	        // No tocar: details, subtotal, totalDiscount, totalTax, totalAmount
-	        return quoteRepository.save(existingQuote);
+	        return quoteRepository.save(existingQuote);	
 	    }).orElseThrow(() -> new RuntimeException("Cotización no encontrada"));
 	}
 	
