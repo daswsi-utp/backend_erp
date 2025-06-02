@@ -43,11 +43,15 @@ public class EmployeeService {
 	public List<Employee> getEmployeeByPosition(EmployeePosition employeePosition){return employeeRepository.findByPosition(employeePosition);}
 	
 	public Employee createEmployee(Employee employee){
+		System.out.println("ENTRO 000");
 		Employee employeeNew = employeeRepository.save(employee);
 		Optional<Department> departEmp = departmentService.getDepartmentById(employeeNew.getDepartment().getId());
+		System.out.println("ENTRO 1111");
 		if (departEmp.isPresent()) {
+			System.out.println("ENTRO 2222");
 	        Department dept = departEmp.get();
 	        if ("CRM".equalsIgnoreCase(dept.getCode())){
+	        	System.out.println("ENTRO 3333");
 	        	Optional<Role> roleOp = roleService.getRoleById(employeeNew.getRole().getId());
 	    		Role role = roleOp.get();
 	        	MemberDTO member = MemberDTO.builder()
