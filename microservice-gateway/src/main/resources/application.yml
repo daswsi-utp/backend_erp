@@ -5,7 +5,9 @@ spring:
   application:
     name: msvc-gateway
   config:
-    import: optional:configserver:http://localhost:8888   
+    import: optional:configserver:http://localhost:8888
+  main:
+    web-application-type: reactive   
   cloud:
     gateway:
       discovery:
@@ -40,7 +42,7 @@ spring:
         - id: msvc-planning
           uri: http://localhost:8094
           predicates:
-            - Path=/api/v1/plannig/**
+            - Path=/api/v1/planning/**
 
         - id: msvc-rrhh
           uri: http://localhost:8095

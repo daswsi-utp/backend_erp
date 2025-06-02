@@ -21,14 +21,15 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         if (roleRepository.count() == 0) {
             List<Role> roles = List.of(
-                new Role(null, "ADMINISTRADOR GENERAL"),
-                new Role(null, "ADMINISTRADOR RRHH"),
-                new Role(null, "ADMINISTRADOR LOGISTICA"),
-                new Role(null, "ADMINISTRADOR VENTAS"),
-                new Role(null, "ADMINISTRADOR PLANEACION"),
-                new Role(null, "ADMINISTRADOR CRM"),
-                new Role(null, "COORDINADOR CRM"),
-                new Role(null, "ASESOR CRM")
+                new Role(null, "ADMIN"),
+                new Role(null, "ADMIN_RRHH"),
+                new Role(null, "ADMIN_LOGISTIC"),
+                new Role(null, "ADMIN_VENTAS"),
+                new Role(null, "ADMIN_PLANNING"),
+                new Role(null, "ADMIN_MANUFACTURE"),
+                new Role(null, "ADMIN_CRM"),
+                new Role(null, "COORDINATOR_CRM"),
+                new Role(null, "ASESOR_CRM")
             );
 
             roleRepository.saveAll(roles);
