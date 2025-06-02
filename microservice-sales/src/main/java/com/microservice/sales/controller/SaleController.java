@@ -48,4 +48,9 @@ public class SaleController {
 	    public ResponseEntity<Sale> updateStatus(@PathVariable Long saleId, @RequestBody DeliveryStatus status) {
 	        return ResponseEntity.ok(saleService.updateStatus(saleId, status));
 	    }
+	   
+	   @GetMapping
+	    public ResponseEntity<List<Sale>> getAllSales() {
+	        return ResponseEntity.ok(saleService.getAllSales());
+	    }
 }
