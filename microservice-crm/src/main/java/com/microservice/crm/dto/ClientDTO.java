@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class ClientDTO {
-
     private Long id;
     private String firstName;
     private String lastName;
