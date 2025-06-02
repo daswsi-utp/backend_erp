@@ -17,7 +17,7 @@ public class ClientController {
     public ClientController(ClientService clientService){
         this.clientService = clientService;
     }
-
+    
     @PostMapping
     public ResponseEntity<?> createClient(@RequestBody CreateClientDTO dto){
         Optional<ClientDTO> created = clientService.createClient(dto);
@@ -27,7 +27,7 @@ public class ClientController {
             return ResponseEntity.status(422).body("Client with this phone and product already exists");
         }
     }
-
+    
     @GetMapping("/check")
     public ResponseEntity<?> checkClientExists(
             @RequestParam String phone,
