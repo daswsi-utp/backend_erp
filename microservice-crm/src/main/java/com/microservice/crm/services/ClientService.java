@@ -68,4 +68,33 @@ public class ClientService {
 
         return mapToDTO(saved);
     }
+    public Optional<ClientDTO> getClient(Long id) {
+        return clientRepository.findById(id).map(this::mapToDTO);
+    }
+    
+    private ClientDTO mapToDTO(Client client) {
+        return ClientDTO.builder()
+                .id(client.getId())
+                .firstName(client.getFirstName())
+                .lastName(client.getLastName())
+                .email(client.getEmail())
+                .phone(client.getPhone())
+                .whatsapp(client.getWhatsapp())
+                .country(client.getCountry())
+                .countryCode(client.getCountryCode())
+                .city(client.getCity())
+                .address(client.getAddress())
+                .companyName(client.getCompanyName())
+                .jobTitle(client.getJobTitle())
+                .birthDate(client.getBirthDate())
+                .notes(client.getNotes())
+                .employeeId(client.getEmployeeId())
+                .clientStateId(client.getClientState() != null ? client.getClientState().getId() : null)
+                .clientStateName(client.getClientState() != null ? client.getClientState().getName() : null)
+                .productId(client.getProduct() != null ? client.getProduct().getId() : null)
+                .reasonName(client.getReason() != null ? client.getReason().getName() : null)
+                .arrivalMeanName(client.getArrivalMean() != null ? client.getArrivalMean().getName() : null)
+                .build();
+    }
+    
 }
