@@ -37,6 +37,15 @@ public class SaleService {
 
         return saleRepository.save(sale);
     }
+    
+    public Sale updateStatus(Long saleId, DeliveryStatus status) {
+        Sale sale = saleRepository.findById(saleId)
+            .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+
+        sale.setDeliveryStatus(status);
+        return saleRepository.save(sale);
+    }
+
 	
 
 }
