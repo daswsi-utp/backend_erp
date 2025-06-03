@@ -13,6 +13,7 @@ spring:
     username: tefa
     password: "0203"
 
+
   jpa:
     hibernate:
       ddl-auto: update

@@ -1,5 +1,6 @@
 package com.microservice.planning.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -33,9 +34,9 @@ public class Task {
 	private String task_description;
 	
 	@Column(name = "task_start_date")
-	private Date task_start_date;
+	private LocalDateTime task_start_date;
 	
 	@Column(name = "task_end_date")
-	private Date task_end_date;
+	private LocalDateTime task_end_date;
 	
 }

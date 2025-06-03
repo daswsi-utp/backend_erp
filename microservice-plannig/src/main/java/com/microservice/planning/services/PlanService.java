@@ -30,4 +30,10 @@ public class PlanService {
 		planRepository.deleteById(id);
 	}
 	
+	public Plan getPlanById(Integer id) {
+		return getPlans()
+				.stream()
+				.filter( plan -> plan.getPlan_id()== id)
+				.toList().get(0);
+	}
 }

@@ -16,7 +16,7 @@ import com.microservice.planning.entities.Task;
 import com.microservice.planning.services.TaskService;
 
 @RestController
-@RequestMapping("/api/planning/task")
+@RequestMapping("/api/v1/planning/task")
 public class TaskController {
 
 	@Autowired
