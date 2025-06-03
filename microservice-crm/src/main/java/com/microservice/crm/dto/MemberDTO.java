@@ -1,6 +1,6 @@
 package com.microservice.crm.dto;
 
-import com.microservice.crm.entities.Status;
+
 
 import lombok.*;
 

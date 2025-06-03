@@ -10,4 +10,7 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByCrmRole(String crmRole);
     List<Member> findByTeamId(Long teamId);
+    List<Member> findByCrmRoleAndStatusCode(String crmRole, int statusCode);
+    List<Member> findByStatusCode(int statusCode);
+
 }

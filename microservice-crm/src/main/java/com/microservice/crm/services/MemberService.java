@@ -34,7 +34,7 @@ public class MemberService {
     }
 
     private MemberDTO mapToDTO(Member member) {
-        // Obtener el nombre completo del empleado
+       
         EmployeeDTO employeeInfo;
         try {
             employeeInfo = employeeFeignClient.getEmployeeById(member.getEmployeeId());
@@ -44,10 +44,8 @@ public class MemberService {
             employeeInfo.setLastName("");
         }
 
-        // Obtener la información del equipo (teamName)
         String teamName = member.getTeam() != null ? member.getTeam().getName() : "Sin Asignar";
 
-        // Convertir la fecha de creación (createdAt) en formato legible
         String createdAt = member.getCreatedAt() != null
                 ? member.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
                 : "No disponible";
@@ -72,6 +70,42 @@ public class MemberService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+    
+    public List<MemberDTO> findMembersByRoleAndActiveStatus(String crmRole) {
+        int activeStatusCode = 1; 
+        return memberRepository.findByCrmRoleAndStatusCode(crmRole, activeStatusCode)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+    
+    public List<MemberDTO> findActiveMembers() {
+        int activeStatusCode = 1; 
+        return memberRepository.findByStatusCode(activeStatusCode)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<MemberDTO> findInactiveMembers() {
+        int inactiveStatusCode = 0; 
+        return memberRepository.findByStatusCode(inactiveStatusCode)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<MemberDTO> updateStatus(Long id, int statusCode) {
+        Optional<Member> optMember = memberRepository.findById(id);
+        if (optMember.isPresent()) {
+            Member member = optMember.get();
+            member.setStatus(Status.fromCode(statusCode));
+            Member updated = memberRepository.save(member);
+            return Optional.of(mapToDTO(updated));
+        }
+        return Optional.empty();
+    }
+
 
     public Optional<MemberDTO> getMemberById(Long id) {
         return memberRepository.findById(id)

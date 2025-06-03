@@ -16,7 +16,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-        System.out.println("Login attempt for: " + request.getUsername()); // Verifica en logs
+        System.out.println("Login attempt for: " + request.getUsername());
 
         return ResponseEntity.ok(authService.login(request));
     }
