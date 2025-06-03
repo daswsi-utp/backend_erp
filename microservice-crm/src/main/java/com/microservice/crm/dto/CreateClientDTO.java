@@ -23,7 +23,7 @@ public class CreateClientDTO {
     private Long clientStateId;
     private LocalDate birthDate;
     private String notes;
-    private Long employeeId;
+    private Long memberId;
     private Long productId;
     private Long reasonId;
     private Long arrivalMeanId;

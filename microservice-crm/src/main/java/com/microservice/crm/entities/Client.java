@@ -56,11 +56,9 @@ public class Client {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "employee_id", nullable = false)
-    private Long employeeId;
+    @Column(name = "member_id", nullable = false)
+    private Long memberId;
 
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reason_id")
@@ -71,6 +69,7 @@ public class Client {
     private ArrivalMean arrivalMean;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
 }

@@ -6,6 +6,7 @@ import com.microservice.crm.services.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +18,17 @@ public class ClientController {
     public ClientController(ClientService clientService){
         this.clientService = clientService;
     }
+    
+    @GetMapping
+    public ResponseEntity<?> getAllClients() {
+        try {
+            List<ClientDTO> clients = clientService.getAllClients();
+            return ResponseEntity.ok(clients);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al obtener los clientes");
+        }
+    }
+
     
     @PostMapping
     public ResponseEntity<?> createClient(@RequestBody CreateClientDTO dto){
@@ -33,14 +45,30 @@ public class ClientController {
             @RequestParam String phone,
             @RequestParam Long productId) {
 
-        boolean exists = clientService.existsByPhoneAndProduct(phone, productId);
+        String normalizedPhone = normalizePhone(phone, "+51"); 
+        boolean exists = clientService.existsByPhoneAndProduct(normalizedPhone, productId);
 
         if (exists) {
             return ResponseEntity.status(409).body("Cliente ya registrado en este producto");
         } else {
-            return ResponseEntity.ok().body("Cliente no encontrado, puede continuar");
+            return ResponseEntity.ok("Cliente no encontrado, puede continuar");
         }
     }
+    
+    private String normalizePhone(String phone, String countryCode) {
+        if (phone == null) return null;
+        String phoneAux = phone.replaceAll("\\s", "").trim();
+
+        if (!phoneAux.startsWith("+")) {
+            if (phoneAux.matches("^[531].*")) {
+                phoneAux = "+" + phoneAux;
+            } else if (countryCode != null && !countryCode.isEmpty()) {
+                phoneAux = countryCode + phoneAux;
+            }
+        }
+        return phoneAux;
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClient(@PathVariable Long id){

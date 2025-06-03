@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -42,7 +43,6 @@ public class ClientService {
         this.arrivalMeanRepository = arrivalMeanRepository;
     }
 
-    // Normaliza teléfono para guardarlo con prefijo
     private String normalizePhone(String phone, String countryCode) {
         if (phone == null) return null;
         String phoneAux = phone.replaceAll("\\s", "").trim();
@@ -66,7 +66,7 @@ public class ClientService {
 
         boolean exists = clientRepository.existsByPhoneAndProductId(phoneAux, dto.getProductId());
         if (exists) {
-            return Optional.empty(); // No crear duplicado
+            return Optional.empty(); 
         }
 
         Client client = new Client();
@@ -83,7 +83,7 @@ public class ClientService {
         client.setJobTitle(dto.getJobTitle());
         client.setBirthDate(dto.getBirthDate());
         client.setNotes(dto.getNotes());
-        client.setEmployeeId(dto.getEmployeeId());
+        client.setMemberId(dto.getMemberId());
         client.setCreatedAt(LocalDateTime.now());
 
         clientStateRepository.findById(dto.getClientStateId()).ifPresent(client::setClientState);
@@ -98,6 +98,15 @@ public class ClientService {
     public Optional<ClientDTO> getClient(Long id) {
         return clientRepository.findById(id).map(this::mapToDTO);
     }
+    
+    public List<ClientDTO> getAllClients() {
+        List<Client> clients = clientRepository.findAll();
+        return clients.stream()
+                      .map(this::mapToDTO)
+                      .collect(Collectors.toList());
+    }
+
+
 
     private ClientDTO mapToDTO(Client client) {
         return ClientDTO.builder()
@@ -115,7 +124,7 @@ public class ClientService {
                 .jobTitle(client.getJobTitle())
                 .birthDate(client.getBirthDate())
                 .notes(client.getNotes())
-                .employeeId(client.getEmployeeId())
+                .memberId(client.getMemberId())
                 .clientStateId(client.getClientState() != null ? client.getClientState().getId() : null)
                 .clientStateName(client.getClientState() != null ? client.getClientState().getName() : null)
                 .productId(client.getProduct() != null ? client.getProduct().getId() : null)
@@ -123,4 +132,6 @@ public class ClientService {
                 .arrivalMeanName(client.getArrivalMean() != null ? client.getArrivalMean().getName() : null)
                 .build();
     }
+    
+    
 }

@@ -34,7 +34,7 @@ public class MemberService {
     }
 
     private MemberDTO mapToDTO(Member member) {
-        // Obtener el nombre completo del empleado
+       
         EmployeeDTO employeeInfo;
         try {
             employeeInfo = employeeFeignClient.getEmployeeById(member.getEmployeeId());
@@ -44,10 +44,8 @@ public class MemberService {
             employeeInfo.setLastName("");
         }
 
-        // Obtener la información del equipo (teamName)
         String teamName = member.getTeam() != null ? member.getTeam().getName() : "Sin Asignar";
 
-        // Convertir la fecha de creación (createdAt) en formato legible
         String createdAt = member.getCreatedAt() != null
                 ? member.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
                 : "No disponible";

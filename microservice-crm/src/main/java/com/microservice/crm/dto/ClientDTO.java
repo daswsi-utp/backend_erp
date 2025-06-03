@@ -26,7 +26,7 @@ public class ClientDTO {
     private String clientStateName;
     private LocalDate birthDate;
     private String notes;
-    private Long employeeId;
+    private Long memberId;
     private Long productId;
     private String reasonName;
     private String arrivalMeanName;
