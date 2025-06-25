@@ -36,7 +36,7 @@ public class QuoteController {
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
 		
-	}
+	} 
 	
 	@PostMapping
 	public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
