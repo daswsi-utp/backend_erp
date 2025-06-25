@@ -10,8 +10,9 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/rrhh_db
-    username: postgres
-    password: fherdinan123
+    username: tefa
+    password: "0203"
+
 
   jpa:
     hibernate:

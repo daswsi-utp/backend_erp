@@ -33,8 +33,37 @@ public class MemberController {
     }
     
     @GetMapping("/role/{role}")
-    public ResponseEntity<List<MemberDTO>> findByRole(@PathVariable String role) {
-        return ResponseEntity.ok(memberService.findMembersByRole(role));
+    public ResponseEntity<List<MemberDTO>> findByRoleActive(@PathVariable String role) {
+        List<MemberDTO> members = memberService.findMembersByRoleAndActiveStatus(role);
+        return ResponseEntity.ok(members);
+    }
+    
+    @GetMapping("/active")
+    public ResponseEntity<List<MemberDTO>> getActiveMembers() {
+        List<MemberDTO> members = memberService.findActiveMembers();
+        return ResponseEntity.ok(members);
+    }
+
+
+
+    @GetMapping("/inactive")
+    public ResponseEntity<List<MemberDTO>> getInactiveMembers() {
+        List<MemberDTO> members = memberService.findInactiveMembers();
+        return ResponseEntity.ok(members);
+    }
+    
+    @PutMapping("/{id}/set_access")
+    public ResponseEntity<MemberDTO> setActive(@PathVariable Long id) {
+        return memberService.updateStatus(id, 1)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/remove_access")
+    public ResponseEntity<MemberDTO> setInactive(@PathVariable Long id) {
+        return memberService.updateStatus(id, 0)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
