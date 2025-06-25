@@ -30,7 +30,7 @@ public class SaleController {
         @PathVariable Long quoteId,
         @RequestBody String deliveryAddress) {
         
-        try {
+        try {	
             Sale sale = saleService.createSaleFromQuote(quoteId, deliveryAddress);
             return ResponseEntity.ok(sale);
         } catch (RuntimeException e) {
