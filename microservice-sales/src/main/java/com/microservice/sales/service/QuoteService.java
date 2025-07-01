@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.microservice.sales.dto.DetailQuoteDTO;
-import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.DetailQuote;
 import com.microservice.sales.model.quote;
 import com.microservice.sales.repository.QuoteRepository;
