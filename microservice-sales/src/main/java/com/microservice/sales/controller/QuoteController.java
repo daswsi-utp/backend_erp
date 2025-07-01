@@ -30,7 +30,7 @@ public class QuoteController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<quote> getQuotesById(@PathVariable Long id){
-		
+		 
 		return quoteService.getQuotesById(id)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());

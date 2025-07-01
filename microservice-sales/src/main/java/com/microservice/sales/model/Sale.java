@@ -2,6 +2,7 @@ package com.microservice.sales.model;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -46,6 +47,9 @@ public class Sale {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "delivery_status")
 	private DeliveryStatus deliveryStatus;
+	
+	@OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
+    private Invoice invoice;
 	
 
 }
