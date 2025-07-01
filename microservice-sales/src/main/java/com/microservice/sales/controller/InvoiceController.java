@@ -5,38 +5,30 @@ import com.microservice.sales.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/sales/invoices")
+@RequestMapping("/api/invoices")
 public class InvoiceController {
 
     @Autowired
-    private InvoiceService invoiceService;
+    private InvoiceService service;
 
-    @PostMapping("/generate-from-quote/{quoteId}")
-    public ResponseEntity<Invoice> generateInvoiceFromQuote(@PathVariable Long quoteId) {
-        return ResponseEntity.ok(invoiceService.generateInvoiceFromQuote(quoteId));
+    @PostMapping("/from-quote/{quoteId}")
+    public ResponseEntity<Invoice> createFromQuote(@PathVariable Long quoteId) {
+        return ResponseEntity.ok(service.generateInvoiceFromQuote(quoteId));
     }
 
     @GetMapping
-    public ResponseEntity<List<Invoice>> getAllInvoices() {
-        return ResponseEntity.ok(invoiceService.getAllInvoices());
+    public ResponseEntity<List<Invoice>> getAll() {
+        return ResponseEntity.ok(service.getAllInvoices());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
-        return invoiceService.getInvoiceById(id)
+    public ResponseEntity<Invoice> getById(@PathVariable Long id) {
+        return service.getInvoiceById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}/update-status")
-    public ResponseEntity<Invoice> updatePaymentStatus(
-            @PathVariable Long id,
-            @RequestParam PaymentStatus status) {
-        return ResponseEntity.ok(invoiceService.updatePaymentStatus(id, status));
+                .orElse(ResponseEntity.notFound().build());
     }
 }
 
