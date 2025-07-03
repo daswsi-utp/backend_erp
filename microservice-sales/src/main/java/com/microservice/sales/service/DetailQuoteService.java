@@ -24,6 +24,8 @@ public class DetailQuoteService {
 	
 	public List<DetailQuote> getDetailQuotes(){return detailQuoteRepository.findAll();}
 	public Optional<DetailQuote> getDetailQuotesById(Long id){return detailQuoteRepository.findById(id);}
+	
+	
 	@Transactional
     public DetailQuote createDetailQuote(DetailQuote detailQuote) {
         // Calcular valores del detalle
@@ -41,6 +43,21 @@ public class DetailQuoteService {
         recalculateQuoteTotals(savedDetail.getQuoteId().getId());
         
         return savedDetail;
+    }
+	
+	@Transactional
+    public void deleteDetailQuote(Long id) {
+        //Obtener el detalle para saber a qué cotización pertenece
+        DetailQuote detail = detailQuoteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Detalle no encontrado"));
+        
+        Long quoteId = detail.getQuoteId().getId();
+        
+        //Eliminar el detalle
+        detailQuoteRepository.deleteById(id);
+        
+        //Recalcular los totales de la cotización
+        recalculateQuoteTotals(quoteId);
     }
 	
 	private void recalculateQuoteTotals(Long quoteId) {
@@ -89,7 +106,7 @@ public class DetailQuoteService {
 	    
 	}
 
-	public void deleteDetailQuote (Long id) {detailQuoteRepository.deleteById(id);}
+	   
 	public List<DetailQuote> getDetailsByQuoteId(Long quoteId) {
 	    return detailQuoteRepository.findByQuoteIdId(quoteId);
 	}

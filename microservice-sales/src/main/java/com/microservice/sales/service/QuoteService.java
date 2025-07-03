@@ -127,7 +127,5 @@ public class QuoteService {
 	public List<quote> getQuotesByState(com.microservice.sales.model.State state) {
 	    return quoteRepository.findByState(state);
 	}
-
-
 	
 }
