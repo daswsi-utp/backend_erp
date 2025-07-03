@@ -27,6 +27,12 @@ public class Task {
 	@Column(name = "task_id")
 	private int task_id;
 	
+	@Column
+	private int plan_id;
+	
+	@Column
+	private int participant_id;
+	
 	@Column(name = "task_name")
 	private String task_name;
 	
