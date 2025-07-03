@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.microservice.sales.dto.QuoteRequestDTO;
 import com.microservice.sales.model.quote;
 import com.microservice.sales.service.QuoteService;
 
@@ -31,12 +30,12 @@ public class QuoteController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<quote> getQuotesById(@PathVariable Long id){
-		
+		 
 		return quoteService.getQuotesById(id)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
 		
-	}
+	} 
 	
 	@PostMapping
 	public quote createQuote(@RequestBody quote quotesn) {return quoteService.createQuote(quotesn);} 
