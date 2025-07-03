@@ -48,4 +48,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     public Optional<Invoice> getInvoiceById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Optional<Invoice> getInvoiceBySaleId(Long saleId) {
+        return repository.findBySaleId(saleId);
+    }
+
 }

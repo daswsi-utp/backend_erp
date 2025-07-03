@@ -11,4 +11,6 @@ public interface InvoiceService {
     Invoice generateInvoiceFromQuote(Long quoteId, Sale sale);
     List<Invoice> getAllInvoices();
     Optional<Invoice> getInvoiceById(Long id);
+    Optional<Invoice> getInvoiceBySaleId(Long saleId);
+
 }
