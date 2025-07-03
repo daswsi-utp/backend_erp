@@ -30,4 +30,8 @@ public class TaskService {
 		taskRepository.deleteById(id);
 	}
 	
+	public List<Task> getTaskByPlanId(Integer id) {
+		return getTasks().stream().filter( t -> t.getPlan_id()==id).toList();
+	}
+	
 }

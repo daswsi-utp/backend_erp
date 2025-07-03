@@ -43,4 +43,9 @@ public class TaskController {
 		taskService.deleteTask(id);
 	}
 	
+	@GetMapping("plan/{id}")
+	public List<Task> listTaskByPlan(@PathVariable Integer id) {
+		return taskService.getTaskByPlanId(id);
+	}
+	
 }
