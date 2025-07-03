@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/logistic_db
-    username: postgres
-    password: 2828
+    username: tefa
+    password: "0203"
 
   jpa:
     hibernate:

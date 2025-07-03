@@ -25,6 +25,7 @@ public class CreateClientDTO {
     private String notes;
     private Long memberId;
     private Long productId;
+    private String productName; 
     private Long reasonId;
     private Long arrivalMeanId;
 }

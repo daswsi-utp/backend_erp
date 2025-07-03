@@ -4,7 +4,14 @@ import com.microservice.crm.dto.CreateProductDTO;
 import com.microservice.crm.dto.ProductDTO;
 import com.microservice.crm.entities.Product;
 import com.microservice.crm.repositories.ProductRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +24,31 @@ public class ProductService {
     public ProductService(ProductRepository productRepository){
         this.productRepository = productRepository;
     }
+    
+
+    public Page<ProductDTO> searchProducts(String searchParams, List<String> fields, PageRequest pageRequest) {
+        Page<Product> productPage = productRepository.searchByFields(searchParams, fields, pageRequest);
+        
+        List<ProductDTO> productDTOs = productPage.getContent().stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+
+        return productPage.map(product -> mapToDTO(product)); // Mapea el contenido a DTO
+    }
+
+
+    public List<ProductDTO> getAllProductsList(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        List<Product> activeProducts = productRepository.findByStatus(1); // Filtro por 'status'
+        System.out.println("Active Products: " + activeProducts.size());
+        return activeProducts.stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+
+
 
     public List<ProductDTO> getAllProducts() {
         List<Product> activeProducts = productRepository.findByStatus(1); // 1 = activo
@@ -40,7 +72,6 @@ public class ProductService {
         return mapToDTO(saved);
     }
 
-
     private ProductDTO mapToDTO(Product product){
         return ProductDTO.builder()
                 .id(product.getId())
@@ -53,5 +84,13 @@ public class ProductService {
                 .cover(product.getCover())
                 .description(product.getDescription())
                 .build();
+    }
+    
+    public List<ProductDTO> formatProductData(Page<ProductDTO> productPage) {
+        return productPage.getContent().stream().map(this::formatProduct).collect(Collectors.toList());
+    }
+
+    private ProductDTO formatProduct(ProductDTO productDTO) {
+        return productDTO; // Puede agregar lógica adicional si se requiere
     }
 }
