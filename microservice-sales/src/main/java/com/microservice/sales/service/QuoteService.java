@@ -58,7 +58,7 @@ public class QuoteService {
 		quoten.setSubtotal(subtotal);
 	    quoten.setTotalDiscount(totalDiscount);
 	    quoten.setTotalTax(totalTax);
-	    quoten.setTotalAmount(totalAmount); // Este es el total final con descuentos e impuestos
+	    quoten.setTotalAmount(totalAmount); 
 
 	    return quoteRepository.save(quoten);
 	}

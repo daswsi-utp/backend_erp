@@ -23,7 +23,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/manufacture_db
     username: postgres
-    password: Yamada
+    password: fherdinan123
 
   jpa:
     hibernate:

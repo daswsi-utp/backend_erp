@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/invoices")
+@RequestMapping("/api/v1/sales/invoices")
 public class InvoiceController {
 
     @Autowired
@@ -30,5 +30,13 @@ public class InvoiceController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    
+    @GetMapping("/by-sale/{saleId}")
+    public ResponseEntity<Invoice> getBySaleId(@PathVariable Long saleId) {
+        return service.getInvoiceBySaleId(saleId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
 
