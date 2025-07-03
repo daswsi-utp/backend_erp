@@ -40,6 +40,10 @@ public class DetailQuote {
 	@Column(name = "id_product")
 	private Long productId;
 	
+	@Column(name = "product_name")
+    private String productName;
+	
+	
 	@Column(name = "amount") //cantidad
 	private Integer amount;
 	

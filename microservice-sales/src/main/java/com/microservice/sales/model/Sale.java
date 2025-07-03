@@ -2,6 +2,9 @@ package com.microservice.sales.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,28 +27,29 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Sale {
-	
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sale")
-	private Long id;
-	
-	@OneToOne
-	@JoinColumn(name = "quote_id")
-	private quote quote;
-	
-	@Column(name = "sale_date")
-	private Timestamp saleDate;
-	
-	@Column(name = "delivery_address")
-	private String deliveryAddress;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "delivery_status")
-	private DeliveryStatus deliveryStatus;
-	
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sale")
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "quote_id")
+    private quote quote;
+
+    @Column(name = "sale_date")
+    private Timestamp saleDate;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "delivery_status")
+    private DeliveryStatus deliveryStatus;
+
+    @OneToOne(mappedBy = "sale", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Invoice invoice;
 }
+
