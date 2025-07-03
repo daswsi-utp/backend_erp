@@ -43,7 +43,7 @@ public class ClientService {
         this.arrivalMeanRepository = arrivalMeanRepository;
     }
 
-    private String normalizePhone(String phone, String countryCode) {
+    public String normalizePhone(String phone, String countryCode) {
         if (phone == null) return null;
         String phoneAux = phone.replaceAll("\\s", "").trim();
 
@@ -105,8 +105,46 @@ public class ClientService {
                       .map(this::mapToDTO)
                       .collect(Collectors.toList());
     }
+    
+    public List<ClientDTO> searchClients(String searchParams, List<String> filters) {
+        String value = searchParams.trim().toLowerCase();
+        List<Client> matches = clientRepository.findAll().stream()
+            .filter(client -> {
+                boolean match = false;
 
+                if (filters.contains("phone") && client.getPhone() != null) {
+                    match |= client.getPhone().toLowerCase().contains(value);
+                }
+                if (filters.contains("whatsapp") && client.getWhatsapp() != null) {
+                    match |= client.getWhatsapp().toLowerCase().contains(value);
+                }
+                if (filters.contains("email") && client.getEmail() != null) {
+                    match |= client.getEmail().toLowerCase().contains(value);
+                }
+                if (filters.contains("job_tittle") && client.getJobTitle() != null) {
+                    match |= client.getJobTitle().toLowerCase().contains(value);
+                }
 
+                return match;
+            })
+            .collect(Collectors.toList());
+
+        return matches.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+    
+    public boolean reassignClient(Long clientId, Long newMemberId, Long newProductId) {
+        Optional<Client> optional = clientRepository.findById(clientId);
+        if (optional.isPresent()) {
+            Client client = optional.get();
+            client.setMemberId(newMemberId);
+
+            productRepository.findById(newProductId).ifPresent(client::setProduct);
+            clientRepository.save(client);
+            return true;
+        }
+        return false;
+    }
+    
 
     private ClientDTO mapToDTO(Client client) {
         return ClientDTO.builder()
@@ -125,11 +163,16 @@ public class ClientService {
                 .birthDate(client.getBirthDate())
                 .notes(client.getNotes())
                 .memberId(client.getMemberId())
+                .memberName(client.getMember() != null ? client.getMember().getFullName() : null)
                 .clientStateId(client.getClientState() != null ? client.getClientState().getId() : null)
                 .clientStateName(client.getClientState() != null ? client.getClientState().getName() : null)
                 .productId(client.getProduct() != null ? client.getProduct().getId() : null)
+                .productCode(client.getProduct() != null ? client.getProduct().getCode() : null)
+                .productName(client.getProduct() != null ? client.getProduct().getName() : null)
                 .reasonName(client.getReason() != null ? client.getReason().getName() : null)
                 .arrivalMeanName(client.getArrivalMean() != null ? client.getArrivalMean().getName() : null)
+                .arrivalMeanId(client.getArrivalMean() != null ? client.getArrivalMean().getId() : null)
+                
                 .build();
     }
     

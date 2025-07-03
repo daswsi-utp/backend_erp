@@ -114,10 +114,12 @@ public class MemberService {
 
     public MemberDTO createMember(CreateMemberDTO createDTO) {
         Member member = new Member();
+        
+        
         member.setEmployeeId(createDTO.getEmployeeId());
         member.setCrmRole(createDTO.getCrmRole());
         member.setStatus(Status.fromCode(createDTO.getStatus()));
-        member.setCreatedAt(LocalDateTime.now());  // Asignar la fecha de creación
+        member.setCreatedAt(LocalDateTime.now());  
 
         EmployeeDTO employeeInfo;
         try {

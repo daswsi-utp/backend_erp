@@ -27,7 +27,11 @@ public class ClientDTO {
     private LocalDate birthDate;
     private String notes;
     private Long memberId;
+    private String memberName; 
+    private String productName; 
+    private String productCode;
     private Long productId;
     private String reasonName;
+    private Long arrivalMeanId;
     private String arrivalMeanName;
 }
