@@ -14,10 +14,10 @@ public class InvoiceController {
     @Autowired
     private InvoiceService service;
 
-    @PostMapping("/from-quote/{quoteId}")
-    public ResponseEntity<Invoice> createFromQuote(@PathVariable Long quoteId) {
-        return ResponseEntity.ok(service.generateInvoiceFromQuote(quoteId));
-    }
+   // @PostMapping("/from-quote/{quoteId}")
+    //public ResponseEntity<Invoice> createFromQuote(@PathVariable Long quoteId) {
+        //return ResponseEntity.ok(service.generateInvoiceFromQuote(quoteId, Sa));
+    //}
 
     @GetMapping
     public ResponseEntity<List<Invoice>> getAll() {
