@@ -29,26 +29,23 @@ public class LeadsController {
 
     @PutMapping("/assign_leads")
     public ResponseEntity<?> assignLeads(@RequestBody List<AssignmentDTO> assignments, @RequestParam String productCode) {
-        // Consulta los clientes no asignados
-        List<Client> unassignedClients = clientRepository.findByProductIdAndMemberIdAndClientState_Id(6L, 1L, 1L); // Estado 1 para activos
+        List<Client> unassignedClients = clientRepository.findByProductIdAndMemberIdAndClientState_Id(6L, 1L, 1L); 
 
         int totalClientsToAssign = unassignedClients.size();
         int totalAssigned = 0;
 
-        // Asignamos los leads a los miembros seleccionados
         for (AssignmentDTO assignment : assignments) {
             Long userId = assignment.getUser_id();
             int totalAssign = assignment.getTotal_assign();
 
-            // Verificar si hay suficientes clientes disponibles
             if (totalAssigned + totalAssign > totalClientsToAssign) {
                 return ResponseEntity.badRequest().body("No hay suficientes clientes para asignar");
             }
 
             for (int i = totalAssigned; i < totalAssigned + totalAssign; i++) {
                 Client client = unassignedClients.get(i);
-                client.setMemberId(userId);  // Asignar el miembro
-                clientRepository.save(client);  // Guardar los cambios
+                client.setMemberId(userId);  
+                clientRepository.save(client);  
             }
 
             totalAssigned += totalAssign;  

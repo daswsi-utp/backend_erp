@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  # Microservicio Eureka
+  msvc-eureka:
+    image: msvc-eureka
+    container_name: msvc-eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-eureka:/source  # Monta el volumen en /source
+
+  # Microservicio Gateway
+  msvc-gateway:
+    image: msvc-gateway
+    container_name: msvc-gateway
+    ports:
+      - "8081:8081"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-gateway:/source
+
+  # Microservicio Auth
+  msvc-auth:
+    image: msvc-auth
+    container_name: msvc-auth
+    ports:
+      - "8096:8096"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-auth:/source  # Monta el volumen en /source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/auth_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-auth-0.0.1-SNAPSHOT.jar"]  # Ejecuta el JAR desde /source/target
+
+  # Microservicio CRM
+  msvc-crm:
+    image: msvc-crm
+    container_name: msvc-crm
+    ports:
+      - "8090:8090"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-crm:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/crm_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-crm-0.0.1-SNAPSHOT.jar"]
+
+  # Microservicio Sales
+  msvc-sales:
+    image: msvc-sales
+    container_name: msvc-sales
+    ports:
+      - "8091:8091"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-sales:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/sales_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-sales-0.0.1-SNAPSHOT.jar"]
+
+  # Microservicio Logistic
+  msvc-logistic:
+    image: msvc-logistic
+    container_name: msvc-logistic
+    ports:
+      - "8092:8092"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-logistic:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/logistic_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-logistic-0.0.1-SNAPSHOT.jar"]
+
+  # Microservicio Manufacture
+  msvc-manufacture:
+    image: msvc-manufacture
+    container_name: msvc-manufacture
+    ports:
+      - "8093:8093"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-manufacture:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/manufacture_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-manufacture-0.0.1-SNAPSHOT.jar"]
+
+  # Microservicio Plannig
+  msvc-planning:
+    image: msvc-plannig
+    container_name: msvc-plannig
+    ports:
+      - "8094:8094"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-plannig:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/planning_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-planning-0.0.1-SNAPSHOT.jar"]
+
+  # Microservicio RRHH
+  msvc-rrhh:
+    image: msvc-rrhh
+    container_name: msvc-rrhh
+    ports:
+      - "8095:8095"
+    networks:
+      - erp-network
+    volumes:
+      - ./microservice-rrhh:/source
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/rrhh_db
+      - SPRING_DATASOURCE_USERNAME=tefa
+      - SPRING_DATASOURCE_PASSWORD=0203
+    command: ["java", "-jar", "/source/target/msvc-rrhh-0.0.1-SNAPSHOT.jar"]
+
+networks:
+  erp-network:
+    driver: bridge
