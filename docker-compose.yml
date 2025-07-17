@@ -34,7 +34,7 @@ services:
     volumes:
       - ./microservice-auth:/source  # Monta el volumen en /source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/auth_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/auth_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-auth-0.0.1-SNAPSHOT.jar"]  # Ejecuta el JAR desde /source/target
@@ -50,7 +50,7 @@ services:
     volumes:
       - ./microservice-crm:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/crm_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/crm_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-crm-0.0.1-SNAPSHOT.jar"]
@@ -66,7 +66,7 @@ services:
     volumes:
       - ./microservice-sales:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/sales_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/sales_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-sales-0.0.1-SNAPSHOT.jar"]
@@ -82,7 +82,7 @@ services:
     volumes:
       - ./microservice-logistic:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/logistic_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/logistic_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-logistic-0.0.1-SNAPSHOT.jar"]
@@ -98,7 +98,7 @@ services:
     volumes:
       - ./microservice-manufacture:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/manufacture_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/manufacture_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-manufacture-0.0.1-SNAPSHOT.jar"]
@@ -114,7 +114,7 @@ services:
     volumes:
       - ./microservice-plannig:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/planning_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/planning_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-planning-0.0.1-SNAPSHOT.jar"]
@@ -130,7 +130,7 @@ services:
     volumes:
       - ./microservice-rrhh:/source
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.0.109:5432/rrhh_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://104.248.55.218:5432/rrhh_db
       - SPRING_DATASOURCE_USERNAME=tefa
       - SPRING_DATASOURCE_PASSWORD=0203
     command: ["java", "-jar", "/source/target/msvc-rrhh-0.0.1-SNAPSHOT.jar"]
