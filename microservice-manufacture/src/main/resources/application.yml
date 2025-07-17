@@ -21,14 +21,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/manufacture_db
-<<<<<<< HEAD
+    url: jdbc:postgresql://192.168.0.109:5432/manufacture_db
     username: tefa
     password: "0203"
-=======
-    username: postgres
-    password: fherdinan123
->>>>>>> master
 
   jpa:
     hibernate:
@@ -42,4 +37,4 @@ eureka:
     hostname: localhost
   client:
    service-url:
-    defaultZone: http://localhost:8761/eureka/
+    defaultZone: http://msvc-eureka:8761/eureka/ 

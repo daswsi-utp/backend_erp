@@ -24,8 +24,8 @@ public class LeadAssignmentService {
 
             List<Client> clients = clientRepository.findByProductIdAndMemberIdAndClientState_Id(
                     assignment.getProductId(),
-                    6L,  // Usamos el `memberId` 6 para obtener los leads disponibles
-                    1L  // Estado "activo"
+                    6L,  
+                    1L 
             );
 
             if (availableLeads < assignment.getTotalLeads()) {

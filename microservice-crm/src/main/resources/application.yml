@@ -7,9 +7,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/crm_db
-    username: postgres
-    password: Yamada
+    url: jdbc:postgresql://192.168.0.109:5432/crm_db
+    username: tefa
+    password: "0203"
 
   jpa:
     hibernate:
@@ -25,4 +25,4 @@ eureka:
     hostname: localhost
   client:
    service-url:
-    defaultZone: http://localhost:8761/eureka/
+    defaultZone: http://msvc-eureka:8761/eureka/ 

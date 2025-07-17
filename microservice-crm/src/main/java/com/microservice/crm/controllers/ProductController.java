@@ -35,14 +35,11 @@ public class ProductController {
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 
-        // Si no se proporciona searchFields, usamos una lista vacía
         List<String> fields = searchFields != null ? List.of(searchFields.split(",")) : List.of();
         PageRequest pageRequest = createPageRequest(sort, page, pageSize);
 
-        // Obtener productos filtrados
         Page<ProductDTO> productPage = productService.searchProducts(searchParams, fields, pageRequest);
 
-        // Crear respuesta con datos de paginación
         Map<String, Object> response = new HashMap<>();
         response.put("products", productService.formatProductData(productPage)); 
         response.put("current_page", productPage.getNumber()); 
